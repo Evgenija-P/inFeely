@@ -33,7 +33,11 @@
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
         }
-      ]
+      ],
+      "expo-font",
+      {
+        "fonts": ["./assets/fonts/Onest-Regular.ttf"]
+      }
     ],
     "experiments": {
       "typedRoutes": true
