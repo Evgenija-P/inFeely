@@ -1,8 +1,7 @@
-import { IAuthFormData } from '@/types/auth.interface'
-
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Text, View } from 'react-native'
+import { IAuthFormData } from 'types/auth.interface'
 
 const AuthScreen = () => {
 	const [isReg, setIsReg] = useState(false)

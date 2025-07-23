@@ -1,18 +1,22 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native'
+import { DefaultTheme, ThemeProvider } from '@react-navigation/native'
 
-import { useColorScheme } from '@/hooks/useColorScheme'
+import Footer from 'components/Footer'
 
-import '@/global.css'
+import '../global.css'
 
+import { Colors } from 'constants/Colors'
 import { useFonts } from 'expo-font'
 import { Stack } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
 import { useState } from 'react'
+import { SafeAreaView, View } from 'react-native'
 import 'react-native-reanimated'
 
 export default function RootLayout() {
-	const [isAuthenticated, setIsAuthenticated] = useState(true)
-	const colorScheme = useColorScheme()
+	const [isAuthenticated, setIsAuthenticated] = useState(false)
+	// const colorScheme = useColorScheme()
+	const colorScheme = 'light'
+
 	const [loaded] = useFonts({
 		OnestRegular: require('../assets/fonts/Onest-Regular.ttf'),
 		OnestMedium: require('../assets/fonts/Onest-Medium.ttf'),
@@ -25,17 +29,24 @@ export default function RootLayout() {
 	}
 
 	return (
-		<ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-			<Stack>
-				{isAuthenticated ? (
-					<Stack.Screen name='(tabs)' options={{ headerShown: false }} />
-				) : (
-					<Stack.Screen name='auth' options={{ headerShown: false }} />
-				)}
+		<SafeAreaView style={{ flex: 1, backgroundColor: Colors[colorScheme].background }}>
+			<ThemeProvider value={DefaultTheme}>
+				<View style={{ flex: 1 }}>
+					{/* Main content */}
+					<View style={{ flex: 1 }}>
+						<Stack>
+							<Stack.Screen name='(tabs)' options={{ headerShown: false }} />
+							<Stack.Screen name='start_page' options={{ headerShown: false }} />
+							<Stack.Screen name='+not-found' />
+						</Stack>
+					</View>
 
-				<Stack.Screen name='+not-found' />
-			</Stack>
-			<StatusBar style='auto' />
-		</ThemeProvider>
+					{/* Footer */}
+					<Footer />
+				</View>
+
+				<StatusBar style='auto' />
+			</ThemeProvider>
+		</SafeAreaView>
 	)
 }
