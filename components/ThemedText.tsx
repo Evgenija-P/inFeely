@@ -29,8 +29,8 @@ const styles = StyleSheet.create({
 		fontFamily: 'OnestRegular'
 	},
 	defaultSemiBold: {
-		fontSize: 16,
-		lineHeight: 24,
+		fontSize: 18,
+		lineHeight: 22,
 		fontWeight: '600',
 		fontFamily: 'OnestSemiBold'
 	},

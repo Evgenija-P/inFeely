@@ -26,7 +26,7 @@ export default function ProtectedRoute({ isAuthenticated, isFirstRender, childre
 		if (!isAuthenticated) {
 			router.replace('/sing_in')
 		}
-	}, [isAuthenticated, isFirstRender, mounted])
+	}, [isAuthenticated, isFirstRender, mounted, router])
 
 	if (!mounted) return null
 

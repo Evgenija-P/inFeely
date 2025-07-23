@@ -29,7 +29,13 @@ export default function RootLayout() {
 	}
 
 	return (
-		<SafeAreaView style={{ flex: 1, backgroundColor: Colors[colorScheme].background }}>
+		<SafeAreaView
+			style={{
+				flex: 1,
+				backgroundColor: Colors[colorScheme].background,
+				paddingHorizontal: 16
+			}}
+		>
 			<ThemeProvider value={DefaultTheme}>
 				<View style={{ flex: 1 }}>
 					{/* Main content */}
