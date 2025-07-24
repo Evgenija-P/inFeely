@@ -11,13 +11,14 @@ import OnboardingScreen3 from './OnboardingScreen3'
 import OnboardingScreen4 from './OnboardingScreen4'
 
 import { useState } from 'react'
-import { Text, View } from 'react-native'
+import { View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 type OnboardingData = {
 	name: string
 	goal: string
-	period: string[]
+	period: number[]
+	isChangePeriod: boolean
 	email: string
 	password: string
 }
@@ -39,7 +40,8 @@ export default function OnboardingScreen() {
 	const [data, setData] = useState({
 		name: '',
 		goal: '',
-		period: ['', ''],
+		period: [6 * 60, 20 * 60],
+		isChangePeriod: false,
 		email: '',
 		password: ''
 	})
@@ -50,7 +52,7 @@ export default function OnboardingScreen() {
 			: index === 1
 				? data.goal === ''
 				: index === 2
-					? data.period[0] === '' || data.period[1] === ''
+					? !data.isChangePeriod
 					: index === 3
 						? data.email === '' || data.password === ''
 						: true
@@ -101,7 +103,6 @@ export default function OnboardingScreen() {
 					{slides[index]({ data, setData })}
 				</View>
 
-				<Text>{JSON.stringify(data)}</Text>
 				<BaseButton
 					onPress={() => setIndex(index + 1)}
 					title='Continue'

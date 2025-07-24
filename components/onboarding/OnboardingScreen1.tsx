@@ -23,6 +23,7 @@ const OnboardingScreen1 = ({ data, setData }: SlideProps) => {
 				placeholder='Enter your name'
 				onChangeText={value => setData(prev => ({ ...prev, name: value }))}
 				value={data.name}
+				height={70}
 			/>
 		</View>
 	)
