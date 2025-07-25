@@ -11,7 +11,6 @@ import { Text, View } from 'react-native'
 
 const OnboardingScreen3 = ({ data, setData }: SlideProps) => {
 	const [values, setValues] = useState(data.period)
-	console.log(values)
 
 	useEffect(() => {
 		setValues(data.period)

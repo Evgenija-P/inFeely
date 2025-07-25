@@ -14,7 +14,7 @@ import { useState } from 'react'
 import { View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
-type OnboardingData = {
+export type OnboardingData = {
 	name: string
 	goal: string
 	period: number[]
@@ -53,9 +53,9 @@ export default function OnboardingScreen() {
 				? data.goal === ''
 				: index === 2
 					? !data.isChangePeriod
-					: index === 3
-						? data.email === '' || data.password === ''
-						: true
+					: true
+
+	console.log('Google Client ID:', process.env.APP_GOOGLE_CLIENT_ID)
 
 	return (
 		<SafeAreaView
@@ -95,20 +95,22 @@ export default function OnboardingScreen() {
 					style={{
 						flex: 1,
 						width: '100%',
-						alignItems: 'center',
-						paddingHorizontal: 16
+						alignItems: 'center'
 					}}
 					className='mx-auto'
 				>
 					{slides[index]({ data, setData })}
 				</View>
 
-				<BaseButton
-					onPress={() => setIndex(index + 1)}
-					title='Continue'
-					className='mb-0'
-					isDisabled={disabled}
-				/>
+				{index !== 3 && (
+					<BaseButton
+						onPress={() => setIndex(index + 1)}
+						title='Continue'
+						className='mb-0'
+						isDisabled={disabled}
+						bgStyle='accent'
+					/>
+				)}
 			</View>
 		</SafeAreaView>
 	)

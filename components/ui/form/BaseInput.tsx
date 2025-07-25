@@ -1,4 +1,4 @@
-import { Hide, Show } from 'assets/images/icons/icons'
+import { Check, Cross, Hide, Show } from 'assets/images/icons/icons'
 
 import { Colors } from 'constants/Colors'
 import { useState } from 'react'
@@ -12,8 +12,9 @@ export type BaseInputProps = {
 	keyboardType?: 'default' | 'numeric' | 'email-address'
 	onChangeText?: (text: string) => void
 	value?: string
-	height: number
+	heightValue: number
 	type?: InputType
+	onValidationChange?: (isValid: boolean) => void
 }
 const BaseInput = ({
 	placeholder,
@@ -21,8 +22,9 @@ const BaseInput = ({
 	keyboardType,
 	onChangeText,
 	value,
-	height,
-	type = 'text'
+	heightValue,
+	type = 'text',
+	onValidationChange
 }: BaseInputProps) => {
 	const [isFocused, setIsFocused] = useState(false)
 	const [error, setError] = useState<string | null>(null)
@@ -32,7 +34,9 @@ const BaseInput = ({
 		setIsFocused(false)
 		const errorMessage = validateField(type, value || '')
 		setError(errorMessage)
+		onValidationChange?.(!errorMessage)
 	}
+	const isCorrectValue = value && !error
 
 	const validateField = (fieldType: InputType, input: string): string | null => {
 		if (fieldType === 'email') {
@@ -47,12 +51,41 @@ const BaseInput = ({
 		return null
 	}
 
+	const IconsComponent = ({ typeInput }: { typeInput: InputType }) => {
+		if (typeInput === 'text') return null
+
+		const shouldShowStatusIcon = value !== ''
+
+		return (
+			<View style={styles.iconBlock}>
+				{typeInput === 'password' && (
+					<TouchableOpacity onPress={() => setSecure(prev => !prev)}>
+						<Text>{secure ? <Hide /> : <Show />}</Text>
+					</TouchableOpacity>
+				)}
+
+				{shouldShowStatusIcon && (isCorrectValue ? <Check /> : <Cross />)}
+			</View>
+		)
+	}
+
 	return (
 		<View className='w-full flex items-center justify-center relative mx-auto'>
 			{icon && <View style={styles.iconWrapper}>{icon}</View>}
 
 			<TextInput
-				style={[styles.input, { height: height }]}
+				style={[
+					styles.input,
+					{
+						height: heightValue,
+						borderColor: error
+							? Colors.light.error
+							: isCorrectValue
+								? Colors.light.ellipse_green
+								: 'transparent',
+						borderWidth: error || isCorrectValue ? 1 : 0
+					}
+				]}
 				onFocus={() => setIsFocused(true)}
 				onBlur={handleBlur}
 				onChangeText={onChangeText}
@@ -63,12 +96,8 @@ const BaseInput = ({
 				keyboardType={keyboardType || 'default'}
 				className={`${icon ? 'pl-12' : 'pl-6'} pr-12 outline-none`}
 			/>
-			{/* 👁 Показати/приховати пароль */}
-			{type === 'password' && (
-				<TouchableOpacity style={styles.eyeIcon} onPress={() => setSecure(prev => !prev)}>
-					<Text>{secure ? <Hide /> : <Show />}</Text>
-				</TouchableOpacity>
-			)}
+
+			<IconsComponent typeInput={type} />
 
 			{/* 🔴 Повідомлення про помилку */}
 			{error && <Text style={styles.error}>{error}</Text>}
@@ -90,7 +119,9 @@ const styles = StyleSheet.create({
 		lineHeight: 22,
 		fontFamily: 'OnestMedium',
 		color: Colors.light.text,
-		borderRadius: 24
+		borderRadius: 24,
+		borderColor: 'transparent',
+		borderWidth: 0
 	},
 	iconWrapper: {
 		position: 'absolute',
@@ -103,7 +134,12 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 		alignItems: 'center'
 	},
-	eyeIcon: {
+	iconBlock: {
+		display: 'flex',
+		flexDirection: 'row',
+		alignItems: 'center',
+		height: 24,
+		gap: 8,
 		position: 'absolute',
 		right: 16,
 		top: '50%',

@@ -30,6 +30,7 @@ const StartScreen = () => {
 						setIsShownRegisterBlock(true)
 					}}
 					title='get started'
+					bgStyle='accent'
 				/>
 				<ThemedText className='text-primary text-center' type='default'>
 					or

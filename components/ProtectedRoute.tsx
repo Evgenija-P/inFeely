@@ -2,14 +2,17 @@ import { useRouter } from 'expo-router'
 import { useEffect, useState } from 'react'
 
 type Props = {
-	isAuthenticated?: boolean
-	isFirstRender?: boolean
+	isAuthenticated?: string
+	isFirstRender?: string
 	children: React.ReactNode
 }
 
 export default function ProtectedRoute({ isAuthenticated, isFirstRender, children }: Props) {
 	const router = useRouter()
 	const [mounted, setMounted] = useState(false)
+
+	console.log('isAuthenticated', isAuthenticated)
+	console.log('isFirstRender', isFirstRender)
 
 	useEffect(() => {
 		setMounted(true)
@@ -18,12 +21,12 @@ export default function ProtectedRoute({ isAuthenticated, isFirstRender, childre
 	useEffect(() => {
 		if (!mounted) return
 
-		if (isFirstRender) {
+		if (isFirstRender === 'true') {
 			router.replace('/start_page')
 			return
 		}
 
-		if (!isAuthenticated) {
+		if (isFirstRender === 'false' && isAuthenticated === 'false') {
 			router.replace('/sing_in')
 		}
 	}, [isAuthenticated, isFirstRender, mounted, router])
