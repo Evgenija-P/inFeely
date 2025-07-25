@@ -6,6 +6,7 @@
 		"orientation": "portrait",
 		"icon": "./assets/images/icon.png",
 		"scheme": "infeely",
+
 		"userInterfaceStyle": "automatic",
 		"newArchEnabled": true,
 		"ios": {
@@ -16,7 +17,8 @@
 				"foregroundImage": "./assets/images/adaptive-icon.png",
 				"backgroundColor": "#ffffff"
 			},
-			"edgeToEdgeEnabled": true
+			"edgeToEdgeEnabled": true,
+			"package": "com.evgenija_125.inFeely"
 		},
 		"web": {
 			"bundler": "metro",
@@ -39,10 +41,18 @@
 				{
 					"fonts": ["./assets/fonts/Onest-Regular.ttf"]
 				}
-			]
+			],
+			"expo-web-browser"
 		],
 		"experiments": {
 			"typedRoutes": true
+		},
+		"extra": {
+			"router": {},
+			"eas": {
+				"projectId": "1d64d0c9-5a56-4ba2-94c9-900c098245d2"
+			},
+			"googleClientId": "1023325107150-2bluomnjpcu6odfu70kq6g8a0vuuipca.apps.googleusercontent.com"
 		}
 	}
 }
