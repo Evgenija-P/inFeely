@@ -1,15 +1,10 @@
 import ProtectedRoute from 'components/ProtectedRoute'
 
-import { useLocalSearchParams } from 'expo-router'
 import { Text, View } from 'react-native'
 
 export default function HomeScreen() {
-	const params = useLocalSearchParams()
-
-	console.log('params:', params)
-
-	const isAuthenticated = params.isAuthenticated || 'false'
-	const firstRender = params.firstRender || 'true'
+	const isAuthenticated = true
+	const firstRender = false
 
 	return (
 		<ProtectedRoute isFirstRender={firstRender} isAuthenticated={isAuthenticated}>

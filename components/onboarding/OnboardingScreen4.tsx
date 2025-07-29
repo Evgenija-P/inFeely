@@ -1,4 +1,5 @@
 import { ThemedText } from 'components/ThemedText'
+// googleConfig.ts
 import BaseButton from 'components/ui/BaseButton'
 import BaseInput from 'components/ui/form/BaseInput'
 
@@ -11,8 +12,7 @@ import { discovery, googleAuthConfig } from 'config/authConfig'
 import { OnboardingData, SlideProps } from './OnboardingScreen'
 
 import { exchangeCodeAsync, useAuthRequest } from 'expo-auth-session'
-import { router } from 'expo-router'
-// googleConfig.ts
+import { useRouter } from 'expo-router'
 import * as WebBrowser from 'expo-web-browser'
 import { useEffect, useState } from 'react'
 import { View } from 'react-native'
@@ -22,7 +22,10 @@ WebBrowser.maybeCompleteAuthSession()
 type FormData = Omit<OnboardingData, 'isChangePeriod'>
 
 const OnboardingScreen4 = ({ data, setData }: SlideProps) => {
+	const router = useRouter()
 	const [isValidValues, setIsValidValues] = useState({ email: false, password: false })
+
+	const [isSuccess, setIsSuccess] = useState(false)
 
 	const [request, response, promptAsync] = useAuthRequest(googleAuthConfig, discovery)
 
@@ -54,12 +57,7 @@ const OnboardingScreen4 = ({ data, setData }: SlideProps) => {
 				const user = await userInfo.json()
 
 				router.replace({
-					pathname: '/',
-					//дуже тимчасове рышення, з наявністю стейта та беку потрібно буде все замінити!
-					params: {
-						isAuthenticated: 'true',
-						firstRender: 'false'
-					}
+					pathname: '/'
 				})
 
 				const regData = { userName: data.name, ...data, ...user }
@@ -73,12 +71,19 @@ const OnboardingScreen4 = ({ data, setData }: SlideProps) => {
 	}, [response])
 
 	const handleGoogleLogin = async () => {
-		await promptAsync()
+		// await promptAsync()
+
+		router.replace({
+			pathname: '/welcome'
+		})
 	}
 	const onRegistration = () => {
 		const { isChangePeriod, ...rest } = data
 		const formData: FormData = rest
 		console.log('formData', formData)
+		router.replace({
+			pathname: '/welcome'
+		})
 	}
 
 	const disabled =
@@ -145,8 +150,6 @@ const OnboardingScreen4 = ({ data, setData }: SlideProps) => {
 					imageSource={AppleIcon}
 				/>
 			</View>
-
-			<View></View>
 		</View>
 	)
 }

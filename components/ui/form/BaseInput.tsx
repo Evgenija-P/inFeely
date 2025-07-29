@@ -30,13 +30,16 @@ const BaseInput = ({
 	const [error, setError] = useState<string | null>(null)
 	const [secure, setSecure] = useState(type === 'password')
 
-	const handleBlur = () => {
-		setIsFocused(false)
-		const errorMessage = validateField(type, value || '')
+	const handleChangeText = (text: string) => {
+		onChangeText?.(text)
+		const errorMessage = validateField(type, text)
 		setError(errorMessage)
 		onValidationChange?.(!errorMessage)
 	}
-	const isCorrectValue = value && !error
+
+	const handleBlur = () => {
+		setIsFocused(false)
+	}
 
 	const validateField = (fieldType: InputType, input: string): string | null => {
 		if (fieldType === 'email') {
@@ -64,7 +67,7 @@ const BaseInput = ({
 					</TouchableOpacity>
 				)}
 
-				{shouldShowStatusIcon && (isCorrectValue ? <Check /> : <Cross />)}
+				{shouldShowStatusIcon && (value && !error ? <Check /> : <Cross />)}
 			</View>
 		)
 	}
@@ -80,15 +83,15 @@ const BaseInput = ({
 						height: heightValue,
 						borderColor: error
 							? Colors.light.error
-							: isCorrectValue
+							: value && !error
 								? Colors.light.ellipse_green
 								: 'transparent',
-						borderWidth: error || isCorrectValue ? 1 : 0
+						borderWidth: error || (value && !error) ? 1 : 0
 					}
 				]}
 				onFocus={() => setIsFocused(true)}
 				onBlur={handleBlur}
-				onChangeText={onChangeText}
+				onChangeText={handleChangeText}
 				value={value}
 				secureTextEntry={secure}
 				placeholder={isFocused || value ? '' : placeholder}

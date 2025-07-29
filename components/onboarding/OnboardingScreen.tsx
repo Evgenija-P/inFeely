@@ -55,8 +55,6 @@ export default function OnboardingScreen() {
 					? !data.isChangePeriod
 					: true
 
-	console.log('Google Client ID:', process.env.APP_GOOGLE_CLIENT_ID)
-
 	return (
 		<SafeAreaView
 			style={{ flex: 1, paddingTop: 32, paddingBottom: 24, justifyContent: 'space-between' }}
