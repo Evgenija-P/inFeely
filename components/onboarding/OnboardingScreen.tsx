@@ -1,36 +1,65 @@
 // OnboardingScreen.tsx
-import { Arrow } from 'assets/images/icons/icons'
+import ArrowBack from 'components/ArrowBack'
+import BaseButton from 'components/ui/BaseButton'
 
-import BaseLink from '../ui/BaseLink'
+import OnboardingScreen1 from './OnboardingScreen1'
+import OnboardingScreen2 from './OnboardingScreen2'
+import OnboardingScreen3 from './OnboardingScreen3'
+import OnboardingScreen4 from './OnboardingScreen4'
 
 import { useState } from 'react'
-import { Dimensions, Text, View } from 'react-native'
-import Carousel from 'react-native-reanimated-carousel'
+import { View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
-const { width } = Dimensions.get('window')
+export type OnboardingData = {
+	name: string
+	goal: string
+	period: number[]
+	isChangePeriod: boolean
+	email: string
+	password: string
+}
+
+export type SlideProps = {
+	data: OnboardingData
+	setData: React.Dispatch<React.SetStateAction<OnboardingData>>
+}
 
 const slides = [
-	{ title: 'Слайд 1', description: 'Пояснення 1' },
-	{ title: 'Слайд 2', description: 'Пояснення 2' },
-	{ title: 'Слайд 3', description: 'Пояснення 3' },
-	{ title: 'Слайд 4', description: 'Пояснення 4' }
+	(props: SlideProps) => <OnboardingScreen1 {...props} />,
+	(props: SlideProps) => <OnboardingScreen2 {...props} />,
+	(props: SlideProps) => <OnboardingScreen3 {...props} />,
+	(props: SlideProps) => <OnboardingScreen4 {...props} />
 ]
 
 export default function OnboardingScreen() {
 	const [index, setIndex] = useState(0)
+	const [data, setData] = useState({
+		name: '',
+		goal: '',
+		period: [6 * 60, 20 * 60],
+		isChangePeriod: false,
+		email: '',
+		password: ''
+	})
+
+	const disabled =
+		index === 0
+			? data.name === ''
+			: index === 1
+				? data.goal === ''
+				: index === 2
+					? !data.isChangePeriod
+					: true
 
 	return (
-		<SafeAreaView style={{ flex: 1, paddingHorizontal: 16, paddingTop: 32, paddingBottom: 24 }}>
+		<SafeAreaView
+			style={{ flex: 1, paddingTop: 32, paddingBottom: 24, justifyContent: 'space-between' }}
+		>
 			<View className='w-full flex flex-row items-center justify-between shrink mb-12'>
 				{/* Кнопка назад */}
 				<View className='w-1/3'>
-					<BaseLink
-						href='/'
-						type='custom'
-						icon={<Arrow />}
-						className='w-[18px] h-[18px] flex items-center justify-start'
-					/>
+					<ArrowBack href='/' />
 				</View>
 
 				{/* Пагінація */}
@@ -51,34 +80,28 @@ export default function OnboardingScreen() {
 				</View>
 				<View className='w-1/3 ' />
 			</View>
+			<View className='flex-1 justify-between items-center'>
+				<View
+					style={{
+						flex: 1,
+						width: '100%',
+						alignItems: 'center'
+					}}
+					className='mx-auto'
+				>
+					{slides[index]({ data, setData })}
+				</View>
 
-			{/* Свайпер */}
-			<Carousel
-				width={width}
-				height={500}
-				data={slides}
-				scrollAnimationDuration={500}
-				onSnapToItem={setIndex}
-				pagingEnabled
-				loop={false}
-				snapEnabled
-				renderItem={({ index: i }) => (
-					<View
-						style={{
-							width,
-							justifyContent: 'center',
-							alignItems: 'center',
-							padding: 20,
-							marginTop: 48
-						}}
-					>
-						<Text style={{ fontSize: 28, fontWeight: 'bold' }}>{slides[i].title}</Text>
-						<Text style={{ fontSize: 18, marginTop: 20, color: '#555' }}>
-							{slides[i].description}
-						</Text>
-					</View>
+				{index !== 3 && (
+					<BaseButton
+						onPress={() => setIndex(index + 1)}
+						title='Continue'
+						className='mb-0'
+						isDisabled={disabled}
+						bgStyle='accent'
+					/>
 				)}
-			/>
+			</View>
 		</SafeAreaView>
 	)
 }

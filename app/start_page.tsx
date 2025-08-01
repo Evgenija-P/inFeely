@@ -10,7 +10,7 @@ const StartScreen = () => {
 	const [isShownRegisterBlock, setIsShownRegisterBlock] = useState(false)
 
 	return !isShownRegisterBlock ? (
-		<View className='w-full h-full flex flex-col items-center justify-center bg-background px-6 pt-[144px] pb-6'>
+		<View className='w-full h-full flex flex-col items-center justify-center bg-background pt-[144px] pb-6'>
 			<View className='flex flex-col gap-4 items-center justify-between mb-[64px] w-full'>
 				<Image
 					source={require('../assets/images/Logo.svg')}
@@ -30,6 +30,7 @@ const StartScreen = () => {
 						setIsShownRegisterBlock(true)
 					}}
 					title='get started'
+					bgStyle='accent'
 				/>
 				<ThemedText className='text-primary text-center' type='default'>
 					or

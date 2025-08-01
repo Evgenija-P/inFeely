@@ -29,16 +29,16 @@ const styles = StyleSheet.create({
 		fontFamily: 'OnestRegular'
 	},
 	defaultSemiBold: {
-		fontSize: 16,
-		lineHeight: 24,
+		fontSize: 18,
+		lineHeight: 22,
 		fontWeight: '600',
 		fontFamily: 'OnestSemiBold'
 	},
 	title: {
-		fontSize: 32,
-		fontWeight: 'bold',
+		fontSize: 24,
+		fontWeight: '600',
 		fontFamily: 'OnestSemiBold',
-		lineHeight: 32
+		lineHeight: 22
 	},
 	subtitle: {
 		fontSize: 20,

@@ -1,6 +1,6 @@
 import { DefaultTheme, ThemeProvider } from '@react-navigation/native'
 
-import Footer from 'components/Footer'
+// import Footer from 'components/Footer'
 
 import '../global.css'
 
@@ -29,20 +29,30 @@ export default function RootLayout() {
 	}
 
 	return (
-		<SafeAreaView style={{ flex: 1, backgroundColor: Colors[colorScheme].background }}>
+		<SafeAreaView
+			style={{
+				flex: 1,
+				backgroundColor: Colors[colorScheme].background,
+				paddingHorizontal: 16
+			}}
+		>
 			<ThemeProvider value={DefaultTheme}>
 				<View style={{ flex: 1 }}>
 					{/* Main content */}
 					<View style={{ flex: 1 }}>
 						<Stack>
 							<Stack.Screen name='(tabs)' options={{ headerShown: false }} />
+
 							<Stack.Screen name='start_page' options={{ headerShown: false }} />
+							<Stack.Screen name='welcome' options={{ headerShown: false }} />
+							<Stack.Screen name='sing_up' options={{ headerShown: false }} />
+
 							<Stack.Screen name='+not-found' />
 						</Stack>
 					</View>
 
 					{/* Footer */}
-					<Footer />
+					{/* <Footer /> */}
 				</View>
 
 				<StatusBar style='auto' />
