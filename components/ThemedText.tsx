@@ -35,10 +35,10 @@ const styles = StyleSheet.create({
 		fontFamily: 'OnestSemiBold'
 	},
 	title: {
-		fontSize: 32,
-		fontWeight: 'bold',
+		fontSize: 24,
+		fontWeight: '600',
 		fontFamily: 'OnestSemiBold',
-		lineHeight: 32
+		lineHeight: 22
 	},
 	subtitle: {
 		fontSize: 20,

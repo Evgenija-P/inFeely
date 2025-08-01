@@ -1,6 +1,6 @@
 import { DefaultTheme, ThemeProvider } from '@react-navigation/native'
 
-import Footer from 'components/Footer'
+// import Footer from 'components/Footer'
 
 import '../global.css'
 
@@ -52,7 +52,7 @@ export default function RootLayout() {
 					</View>
 
 					{/* Footer */}
-					<Footer />
+					{/* <Footer /> */}
 				</View>
 
 				<StatusBar style='auto' />

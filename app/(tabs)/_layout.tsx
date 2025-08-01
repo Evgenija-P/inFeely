@@ -1,4 +1,5 @@
 // import { useColorScheme } from 'hooks/useColorScheme';
+import AddTabButton from 'components/AddTabButton'
 import { HapticTab } from 'components/HapticTab'
 import TabBarBackground from 'components/ui/TabBarBackground'
 
@@ -38,19 +39,19 @@ export default function TabLayout() {
 					default: {
 						height: 112,
 						backgroundColor: Colors.light.background,
-						opacity: 0.8,
+						// opacity: 0.8,
 						borderTopLeftRadius: 24,
 						borderTopRightRadius: 24,
 						borderTopWidth: 0,
-						elevation: 10, // для Android тінь
-						shadowColor: '#000', // для iOS тінь
-						shadowOpacity: 0.05,
-						shadowOffset: { width: 0, height: -5 },
-						shadowRadius: 10,
-						paddingTop: 29,
-						paddingBottom: 29,
-						paddingLeft: 24,
-						paddingRight: 24
+
+						paddingHorizontal: 8,
+						paddingVertical: 16,
+
+						display: 'flex',
+						flexDirection: 'row',
+
+						alignItems: 'center',
+						justifyContent: 'space-between'
 					}
 				})
 			}}
@@ -74,7 +75,9 @@ export default function TabLayout() {
 				name='add'
 				options={{
 					title: 'Add',
-					tabBarIcon: ({ focused }) => <HomeIcon />
+					tabBarLabel: '',
+					tabBarIcon: () => null,
+					tabBarButton: props => <AddTabButton {...props} />
 				}}
 			/>
 			<Tabs.Screen

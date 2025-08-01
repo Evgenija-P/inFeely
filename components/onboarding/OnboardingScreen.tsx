@@ -1,9 +1,6 @@
 // OnboardingScreen.tsx
+import ArrowBack from 'components/ArrowBack'
 import BaseButton from 'components/ui/BaseButton'
-
-import { Arrow } from 'assets/images/icons/icons'
-
-import BaseLink from '../ui/BaseLink'
 
 import OnboardingScreen1 from './OnboardingScreen1'
 import OnboardingScreen2 from './OnboardingScreen2'
@@ -62,12 +59,7 @@ export default function OnboardingScreen() {
 			<View className='w-full flex flex-row items-center justify-between shrink mb-12'>
 				{/* Кнопка назад */}
 				<View className='w-1/3'>
-					<BaseLink
-						href='/'
-						type='custom'
-						icon={<Arrow />}
-						className='w-[18px] h-[18px] flex items-center justify-start'
-					/>
+					<ArrowBack href='/' />
 				</View>
 
 				{/* Пагінація */}
