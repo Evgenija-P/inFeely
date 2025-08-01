@@ -1,13 +1,16 @@
 import ProtectedRoute from 'components/ProtectedRoute'
+import Reminder from 'components/Reminder'
 import { ThemedText } from 'components/ThemedText'
 import BaseLink from 'components/ui/BaseLink'
 
 import { Avatar } from 'assets/images/icons/icons'
 
+import { useState } from 'react'
 import { View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 export default function HomeScreen() {
+	const [isEmpty, setIsEmpty] = useState(true)
 	const isAuthenticated = true
 	const firstRender = false
 
@@ -46,25 +49,55 @@ export default function HomeScreen() {
 				</View>
 
 				{/* блок з прийомами їжі чи заглушка */}
-				<View className='flex gap-4 w-full h-fit rounded-3xl bg-white p-8'>
-					<View className='flex-1 justify-center items-center gap-2'>
-						<ThemedText type='defaultSemiBold' style={{ textAlign: 'center' }}>
-							Ready to listen to yourself?
-						</ThemedText>
-						<ThemedText
-							type='default'
-							className='text-sm text-center text-ellipse_dark'
-							style={{ opacity: 0.5 }}
-						>
-							Start by adding your first feeling
-						</ThemedText>
-					</View>
-					<BaseLink
-						href='/add'
-						text='Begin Now'
-						type='custom'
-						className='w-fit mx-auto text-sm text-white uppercase px-8 py-[14px] rounded-full bg-primary flex items-center justify-center'
-					/>
+
+				<View className='flex gap-4 w-full h-fit'>
+					{isEmpty ? (
+						<View className='flex gap-4 w-full h-fit rounded-3xl bg-white p-8'>
+							<View className='flex-1 justify-center items-center gap-2'>
+								<ThemedText type='defaultSemiBold' style={{ textAlign: 'center' }}>
+									Ready to listen to yourself?
+								</ThemedText>
+								<ThemedText
+									type='default'
+									className='text-sm text-center text-ellipse_dark'
+									style={{ opacity: 0.5 }}
+								>
+									Start by adding your first feeling
+								</ThemedText>
+							</View>
+							<BaseLink
+								href='/add'
+								text='Begin Now'
+								type='custom'
+								className='w-fit mx-auto text-sm text-white uppercase px-8 py-[14px] rounded-full bg-primary flex items-center justify-center'
+							/>
+						</View>
+					) : (
+						<View className='flex gap-4 w-full h-fit rounded-3xl bg-white p-8'>
+							<View className='flex-1 justify-center items-center gap-2'>
+								<ThemedText type='defaultSemiBold' style={{ textAlign: 'center' }}>
+									Ready to listen to yourself?
+								</ThemedText>
+								<ThemedText
+									type='default'
+									className='text-sm text-center text-ellipse_dark'
+									style={{ opacity: 0.5 }}
+								>
+									Start by adding your first feeling
+								</ThemedText>
+							</View>
+							<BaseLink
+								href='/add'
+								text='Begin Now'
+								type='custom'
+								className='w-fit mx-auto text-sm text-white uppercase px-8 py-[14px] rounded-full bg-primary flex items-center justify-center'
+							/>
+						</View>
+					)}
+
+					{/* Reminder */}
+
+					<Reminder />
 				</View>
 			</SafeAreaView>
 		</ProtectedRoute>
