@@ -4,6 +4,7 @@ const tintColorDark = '#F3F3F3'
 export const Colors = {
 	light: {
 		text: '#000000',
+		main: '#252622',
 		background: '#F3F3F3',
 		accent: '#6E7556',
 		placeholder: '#fff',
