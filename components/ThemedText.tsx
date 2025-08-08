@@ -1,7 +1,7 @@
 import { StyleSheet, Text, type TextProps } from 'react-native'
 
 export type ThemedTextProps = TextProps & {
-	type?: 'default' | 'title' | 'defaultSemiBold' | 'subtitle' | 'link'
+	type?: 'default' | 'defaultMedium' | 'title' | 'defaultSemiBold' | 'subtitle' | 'link'
 	className?: string
 }
 
@@ -10,6 +10,7 @@ export function ThemedText({ style, type = 'default', className, ...rest }: Them
 		<Text
 			style={[
 				type === 'default' ? styles.default : undefined,
+				type === 'defaultMedium' ? styles.default : undefined,
 				type === 'title' ? styles.title : undefined,
 				type === 'defaultSemiBold' ? styles.defaultSemiBold : undefined,
 				type === 'subtitle' ? styles.subtitle : undefined,
@@ -27,6 +28,12 @@ const styles = StyleSheet.create({
 		fontSize: 16,
 		lineHeight: 22,
 		fontFamily: 'OnestRegular'
+	},
+	defaultMedium: {
+		fontSize: 16,
+		lineHeight: 22,
+		fontWeight: '500',
+		fontFamily: 'OnestMedium'
 	},
 	defaultSemiBold: {
 		fontSize: 18,

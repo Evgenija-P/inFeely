@@ -5,6 +5,7 @@ import { DefaultTheme, ThemeProvider } from '@react-navigation/native'
 import '../global.css'
 
 import { Colors } from 'constants/Colors'
+import { MealProvider } from 'contexts/MealContext'
 import { useFonts } from 'expo-font'
 import { Stack } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
@@ -37,25 +38,27 @@ export default function RootLayout() {
 			}}
 		>
 			<ThemeProvider value={DefaultTheme}>
-				<View style={{ flex: 1 }}>
-					{/* Main content */}
+				<MealProvider>
 					<View style={{ flex: 1 }}>
-						<Stack>
-							<Stack.Screen name='(tabs)' options={{ headerShown: false }} />
+						{/* Main content */}
+						<View style={{ flex: 1 }}>
+							<Stack>
+								<Stack.Screen name='(tabs)' options={{ headerShown: false }} />
 
-							<Stack.Screen name='start_page' options={{ headerShown: false }} />
-							<Stack.Screen name='welcome' options={{ headerShown: false }} />
-							<Stack.Screen name='sing_up' options={{ headerShown: false }} />
+								<Stack.Screen name='start_page' options={{ headerShown: false }} />
+								<Stack.Screen name='welcome' options={{ headerShown: false }} />
+								<Stack.Screen name='sing_up' options={{ headerShown: false }} />
 
-							<Stack.Screen name='+not-found' />
-						</Stack>
+								<Stack.Screen name='+not-found' />
+							</Stack>
+						</View>
+
+						{/* Footer */}
+						{/* <Footer /> */}
 					</View>
 
-					{/* Footer */}
-					{/* <Footer /> */}
-				</View>
-
-				<StatusBar style='auto' />
+					<StatusBar style='auto' />
+				</MealProvider>
 			</ThemeProvider>
 		</SafeAreaView>
 	)
