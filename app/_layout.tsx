@@ -21,7 +21,8 @@ export default function RootLayout() {
 	const [loaded] = useFonts({
 		OnestRegular: require('../assets/fonts/Onest-Regular.ttf'),
 		OnestMedium: require('../assets/fonts/Onest-Medium.ttf'),
-		OnestSemiBold: require('../assets/fonts/Onest-SemiBold.ttf')
+		OnestSemiBold: require('../assets/fonts/Onest-SemiBold.ttf'),
+		OnestExtraBold: require('../assets/fonts/Onest-ExtraBold.ttf')
 	})
 
 	if (!loaded) {

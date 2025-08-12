@@ -42,7 +42,7 @@ export default BaseLabelButton
 
 const styles = StyleSheet.create({
 	label: {
-		width: '30%',
+		width: '32%',
 		height: 38,
 		display: 'flex',
 		justifyContent: 'center',

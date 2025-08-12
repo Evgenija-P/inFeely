@@ -2,6 +2,8 @@ import { Bracket } from 'assets/images/icons/icons'
 
 import BaseWrapper from './BaseWrapper'
 import DateTimePickerDetails from './DateTimePickerDetails'
+import EatWith from './EatWith'
+import Eating from './Eating'
 import { ThemedText } from './ThemedText'
 
 import { useState } from 'react'
@@ -10,7 +12,7 @@ import { Pressable, StyleSheet, View } from 'react-native'
 const DetailsMeal = () => {
 	const [isShowDetails, setIsShowDetails] = useState(false)
 	return (
-		<BaseWrapper style={{ position: 'relative' }}>
+		<BaseWrapper style={{ position: 'relative', zIndex: 1 }}>
 			<ThemedText type='defaultMedium' style={{ textAlign: 'center' }}>
 				Details
 			</ThemedText>
@@ -29,6 +31,8 @@ const DetailsMeal = () => {
 			{isShowDetails && (
 				<View style={styles.detailsWrapper}>
 					<DateTimePickerDetails />
+					<Eating />
+					<EatWith />
 				</View>
 			)}
 		</BaseWrapper>
@@ -41,7 +45,8 @@ const styles = StyleSheet.create({
 	detailsWrapper: {
 		display: 'flex',
 		alignItems: 'center',
-		gap: 32
+		gap: 32,
+		zIndex: 10
 	},
 	arrowBtn: {
 		width: 24,

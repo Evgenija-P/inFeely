@@ -1,12 +1,13 @@
 import AddImageInMeal from './AddImageInMeal'
 import BaseWrapper from './BaseWrapper'
 import DetailsMeal from './DetailsMeal'
+import HungryLevel from './HungryLevel'
 import MealLabel from './MealLabel'
 
 import { Colors } from 'constants/Colors'
 import { useMealContext } from 'contexts/MealContext'
 import { useEffect, useState } from 'react'
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
 type StateType = 'before' | 'after'
 
@@ -43,7 +44,7 @@ const MealComponent = () => {
 	useEffect(() => {}, [state.label, state.hungryLevel])
 
 	return (
-		<View style={styles.container}>
+		<ScrollView contentContainerStyle={styles.container}>
 			<View style={styles.buttonWrapper}>
 				{(['before', 'after'] as StateType[]).map(type => (
 					<ToggleButton
@@ -59,9 +60,10 @@ const MealComponent = () => {
 				<MealLabel />
 			</BaseWrapper>
 			<DetailsMeal />
+			<HungryLevel />
 			<Text>{isShowButtons}</Text>
 			{isShowButtons && <TouchableOpacity>TouchableOpacity </TouchableOpacity>}
-		</View>
+		</ScrollView>
 	)
 }
 

@@ -1,6 +1,7 @@
 import ProtectedRoute from 'components/ProtectedRoute'
 import Reminder from 'components/Reminder'
 import { ThemedText } from 'components/ThemedText'
+import WeekCalendar from 'components/WeekCalendar'
 import BaseLink from 'components/ui/BaseLink'
 
 import { Avatar } from 'assets/images/icons/icons'
@@ -44,8 +45,9 @@ export default function HomeScreen() {
 				</View>
 
 				{/* середній блок, календар */}
+
 				<View className='mb-6 min-h-24'>
-					<ThemedText type='default'>Calendar</ThemedText>
+					<WeekCalendar />
 				</View>
 
 				{/* блок з прийомами їжі чи заглушка */}

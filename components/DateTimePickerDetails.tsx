@@ -1,61 +1,21 @@
+import CalendarComponent from './CalendarComponent'
 import { ThemedText } from './ThemedText'
 
 import { Colors } from 'constants/Colors'
 import { useMealContext } from 'contexts/MealContext'
 import { useEffect, useState } from 'react'
 import { Pressable, StyleSheet, Text, View } from 'react-native'
-import { Calendar } from 'react-native-calendars'
-
-const CalendarComponent = () => {
-	return (
-		<View>
-			<Calendar
-				markingType={'period'}
-				markedDates={{
-					'2012-05-15': { marked: true, dotColor: '#50cebb' },
-					'2012-05-16': { marked: true, dotColor: '#50cebb' },
-					'2012-05-21': { startingDay: true, color: '#50cebb', textColor: 'white' },
-					'2012-05-22': { color: '#70d7c7', textColor: 'white' },
-					'2012-05-23': {
-						color: '#70d7c7',
-						textColor: 'white',
-						marked: true,
-						dotColor: 'white'
-					},
-					'2012-05-24': { color: '#70d7c7', textColor: 'white' },
-					'2012-05-25': { endingDay: true, color: '#50cebb', textColor: 'white' }
-				}}
-			/>
-		</View>
-	)
-}
 
 const DateTimePickerDetails = () => {
 	const { state, setField } = useMealContext()
 	const [isShowDateTimePicker, setIsShowDateTimePicker] = useState(false)
-	const [currentDateTime, setCurrentDateTime] = useState(new Date().toISOString())
 
 	// При монтуванні — одразу записуємо поточний час у контекст
 	useEffect(() => {
-		setField('dateTime', new Date().toISOString())
+		if (!state.dateTime) {
+			setField('dateTime', new Date().toISOString())
+		}
 	}, [])
-
-	// Коли відкритий пікер — оновлюємо час щосекунди
-	useEffect(() => {
-		let interval: ReturnType<typeof setInterval> | undefined
-
-		if (isShowDateTimePicker) {
-			interval = setInterval(() => {
-				const now = new Date().toISOString()
-				setCurrentDateTime(now)
-				setField('dateTime', now)
-			}, 1000)
-		}
-
-		return () => {
-			if (interval) clearInterval(interval)
-		}
-	}, [isShowDateTimePicker])
 
 	function formatDateTime(dateISO: string) {
 		const date = new Date(dateISO)
@@ -80,13 +40,15 @@ const DateTimePickerDetails = () => {
 			<ThemedText type='defaultMedium' style={{ textAlign: 'center' }}>
 				Time
 			</ThemedText>
-			<Pressable
-				onPress={() => setIsShowDateTimePicker(!isShowDateTimePicker)}
-				style={styles.btn}
-			>
-				<Text style={styles.text}>{formatDateTime(currentDateTime)}</Text>
-			</Pressable>
-			{isShowDateTimePicker && <CalendarComponent />}
+			<View style={{ width: '100%', position: 'relative' }}>
+				<Pressable
+					onPress={() => setIsShowDateTimePicker(!isShowDateTimePicker)}
+					style={styles.btn}
+				>
+					<Text style={styles.text}>{formatDateTime(state.dateTime)}</Text>
+				</Pressable>
+				{isShowDateTimePicker && <CalendarComponent />}
+			</View>
 		</View>
 	)
 }
@@ -94,7 +56,12 @@ const DateTimePickerDetails = () => {
 export default DateTimePickerDetails
 
 const styles = StyleSheet.create({
-	detailWrapper: { width: '100%', display: 'flex', alignItems: 'center', gap: 8 },
+	detailWrapper: {
+		width: '100%',
+		display: 'flex',
+		alignItems: 'center',
+		gap: 8
+	},
 	btn: {
 		width: '100%',
 		height: 54,
@@ -109,5 +76,11 @@ const styles = StyleSheet.create({
 		lineHeight: 22,
 		fontWeight: '500',
 		fontFamily: 'OnestMedium'
+	},
+	calendar: {
+		marginTop: 16,
+		width: '100%',
+		backgroundColor: Colors.light.background,
+		borderRadius: 24
 	}
 })
