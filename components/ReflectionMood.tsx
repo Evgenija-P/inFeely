@@ -14,80 +14,83 @@ const textValues = [
 		text: ['', '']
 	},
 	{
-		title: 'Hangry',
-		text: ['I feel irritated and impatient.', ' Hunger makes me lose my temper quickly.']
-	},
-	{
-		title: 'Starving',
-		text: ['I feel weak and dizzy.', 'I can’t think straight. My body begs for food.']
-	},
-	{
-		title: 'Very hungry',
-		text: ['I feel intense hunger.', 'My stomach growls and I think only about eating.']
-	},
-	{
-		title: 'Hungry',
-		text: ['I feel clear hunger.', 'My body sends signals, and I know I need food soon.']
-	},
-	{
-		title: 'Slightly hungry',
-		text: ['I feel a little empty.', 'It’s not urgent, but I could eat something.']
-	},
-	{
-		title: 'Neutral',
+		title: 'Shame 😔',
 		text: [
-			'I feel neither hungry nor full.',
-			'My body is in balance, and I’m not thinking about food.'
+			'I feel bad about myself.","I regret eating or how I act. I want to hide or disappear.'
 		]
 	},
 	{
-		title: 'Slightly full',
-		text: ['I feel light satisfaction.', 'I could eat more, but I’m okay stopping now.']
-	},
-	{
-		title: 'Full',
-		text: ['I feel comfortably full.', 'My hunger is gone, and my body feels content.']
-	},
-	{
-		title: 'Very full',
-		text: ['I feel heavy.', 'There’s pressure in my belly, and I don’t want more food.']
-	},
-	{
-		title: 'Uncomfortably full',
+		title: 'Guilt 😞',
 		text: [
-			'I feel bloated and regretful.',
-			'My body feels slow, and I wish I had stopped earlier.'
+			'I do something wrong.","I feel like I break a rule or mess up. There’s a heavy feeling in my chest.'
 		]
 	},
 	{
-		title: 'Stuffed',
+		title: 'Disappointed 😕',
 		text: [
-			'I feel overfilled.',
-			'It’s hard to move or breathe comfortably. I feel overwhelmed.'
+			'It’s not what I want.","The food doesn’t satisfy me or I expect something else. I feel let down.'
+		]
+	},
+	{
+		title: 'Angry 😠',
+		text: [
+			'Something feels unfair or out of control.","I feel tension, frustration, or irritation. I might want to act out or shut down.'
+		]
+	},
+	{
+		title: 'Neutral 😐',
+		text: ['I feel nothing special.","There’s no strong emotion. I just exist in this moment.']
+	},
+
+	{
+		title: 'Relief 😌',
+		text: ['I feel lighter now.","Something eases inside me. The tension fades.']
+	},
+	{
+		title: 'Satisfied 🙂',
+		text: [
+			'I give my body what it needs.","I feel okay, balanced, and not too full. Everything feels right.'
+		]
+	},
+	{
+		title: 'Calm 😊',
+		text: [
+			'I feel peaceful.","My mind is quiet, there’s no stress around eating. I feel stable.'
+		]
+	},
+	{
+		title: 'Happy 😄',
+		text: [
+			'I enjoy the food and feel good.","It lifts my mood or gives energy. I smile inside.'
+		]
+	},
+	{
+		title: 'Grateful 🥰',
+		text: [
+			'I feel thankful for this meal.","There’s care, love, or comfort here. I feel connected.'
 		]
 	}
 ]
 
-const HungryLevel = () => {
+const ReflectionMood = () => {
 	const { state, setField } = useMealContext()
 
 	const screenWidth = Dimensions.get('window').width
 	const onValuesChange = (values: number[]) => {
-		setField('hungryLevel', values[0])
+		setField('feelingLevel', values[0])
 	}
 
 	const ranges = [
-		{ min: 1, max: 9, color: Colors.light.ellipse_red, index: 1 },
-		{ min: 9, max: 18, color: Colors.light.ellipse_pink, index: 2 },
-		{ min: 18, max: 27, color: Colors.light.ellipse_yellow, index: 3 },
-		{ min: 27, max: 36, color: Colors.light.ellipse_green, index: 4 },
-		{ min: 36, max: 45, color: Colors.light.ellipse_dark_green, index: 5 },
-		{ min: 45, max: 54, color: Colors.light.ellipse_dark_green, index: 6 },
-		{ min: 54, max: 63, color: Colors.light.ellipse_dark_green, index: 7 },
-		{ min: 63, max: 72, color: Colors.light.ellipse_green, index: 8 },
-		{ min: 72, max: 81, color: Colors.light.ellipse_yellow, index: 9 },
-		{ min: 81, max: 90, color: Colors.light.ellipse_pink, index: 10 },
-		{ min: 90, max: 101, color: Colors.light.ellipse_red, index: 11 }
+		{ min: 1, max: 10, color: Colors.light.ellipse_red, index: 1 },
+		{ min: 10, max: 20, color: Colors.light.ellipse_red, index: 2 },
+		{ min: 20, max: 30, color: Colors.light.ellipse_pink, index: 3 },
+		{ min: 30, max: 40, color: Colors.light.ellipse_pink, index: 4 },
+		{ min: 40, max: 50, color: Colors.light.ellipse_yellow, index: 5 },
+		{ min: 50, max: 60, color: Colors.light.ellipse_yellow, index: 6 },
+		{ min: 60, max: 70, color: Colors.light.ellipse_green, index: 7 },
+		{ min: 70, max: 80, color: Colors.light.ellipse_green, index: 8 },
+		{ min: 80, max: 90, color: Colors.light.ellipse_dark_green, index: 9 },
+		{ min: 90, max: 101, color: Colors.light.ellipse_dark_green, index: 10 }
 	]
 
 	const valuePicker = (point?: number) => {
@@ -105,13 +108,13 @@ const HungryLevel = () => {
 		if (range.index >= textValues.length) return textValues[textValues.length - 1]
 		return textValues[range.index] || textValues[0]
 	}
-	const { title, text } = getTextByValue(state.hungryLevel) || textValues[0]
+	const { title, text } = getTextByValue(state.feelingLevel) || textValues[0]
 
 	return (
 		<BaseWrapper style={{}}>
 			<View style={{ gap: 8 }}>
 				<ThemedText type='defaultMedium' style={{ textAlign: 'center' }}>
-					How hungry are you?
+					How are you feeling right now?
 				</ThemedText>
 
 				<View>
@@ -150,7 +153,7 @@ const HungryLevel = () => {
 					{title}
 				</ThemedText>
 				<MultiSlider
-					values={[state.hungryLevel || 0]}
+					values={[state.feelingLevel || 0]}
 					sliderLength={screenWidth - 64}
 					onValuesChange={onValuesChange}
 					min={0}
@@ -161,7 +164,7 @@ const HungryLevel = () => {
 					containerStyle={{ height: 20 }}
 					selectedStyle={{
 						backgroundColor:
-							valuePicker(state.hungryLevel) ?? Colors.light.ellipse_lite,
+							valuePicker(state.feelingLevel) ?? Colors.light.ellipse_lite,
 						height: 16,
 						borderRadius: 16
 					}}
@@ -175,7 +178,7 @@ const HungryLevel = () => {
 						width: 16,
 						borderRadius: 16,
 						borderWidth: 2,
-						borderColor: valuePicker(state.hungryLevel) ?? Colors.light.ellipse_lite,
+						borderColor: valuePicker(state.feelingLevel) ?? Colors.light.ellipse_lite,
 						backgroundColor: 'white',
 						top: 8,
 						boxShadow: '0px 0px 0px 2px rgba(255, 255, 255)'
@@ -186,4 +189,4 @@ const HungryLevel = () => {
 	)
 }
 
-export default HungryLevel
+export default ReflectionMood

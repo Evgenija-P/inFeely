@@ -9,7 +9,7 @@ type MealState = {
 	place: string
 	eatWith: string
 	hungryLevel: number
-	reflection: string
+	motivation: string[]
 	feelingLevel: number
 	note: string
 }
@@ -33,7 +33,7 @@ const initialState: MealState = {
 	place: '',
 	eatWith: '',
 	hungryLevel: 0,
-	reflection: '',
+	motivation: [],
 	feelingLevel: 0,
 	note: ''
 }

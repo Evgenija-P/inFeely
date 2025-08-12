@@ -3,6 +3,7 @@ import BaseWrapper from './BaseWrapper'
 import DetailsMeal from './DetailsMeal'
 import HungryLevel from './HungryLevel'
 import MealLabel from './MealLabel'
+import ReflectionComponent from './Reflection'
 
 import { Colors } from 'constants/Colors'
 import { useMealContext } from 'contexts/MealContext'
@@ -61,6 +62,7 @@ const MealComponent = () => {
 			</BaseWrapper>
 			<DetailsMeal />
 			<HungryLevel />
+			<ReflectionComponent />
 			<Text>{isShowButtons}</Text>
 			{isShowButtons && <TouchableOpacity>TouchableOpacity </TouchableOpacity>}
 		</ScrollView>

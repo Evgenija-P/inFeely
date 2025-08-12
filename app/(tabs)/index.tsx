@@ -16,7 +16,7 @@ export default function HomeScreen() {
 	const firstRender = false
 
 	return (
-		<ProtectedRoute isFirstRender={firstRender} isAuthenticated={isAuthenticated}>
+		<ProtectedRoute isFirstRender={false} isAuthenticated={true}>
 			<SafeAreaView
 				style={{
 					flex: 1,
