@@ -104,8 +104,8 @@ const styles = StyleSheet.create({
 		flex: 1,
 		alignItems: 'center',
 		justifyContent: 'space-between',
-		gap: 16,
-		paddingTop: 24
+		gap: 16
+		// paddingTop: 24
 	},
 	buttonWrapper: {
 		height: 48,

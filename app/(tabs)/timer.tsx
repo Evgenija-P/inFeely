@@ -1,27 +1,26 @@
-import ParallaxScrollView from 'components/ParallaxScrollView'
+import ProtectedRoute from 'components/ProtectedRoute'
 import { ThemedText } from 'components/ThemedText'
-import { ThemedView } from 'components/ThemedView'
+import Timer from 'components/Timer'
 
-import { Image } from 'expo-image'
 import { StyleSheet } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 // Dummy GoogleLoginButton component for demonstration
 
 export default function TimerScreen() {
 	return (
-		<ParallaxScrollView
-			headerBackgroundColor={{ light: '#c6d9f5', dark: '#f5a8b5' }}
-			headerImage={
-				<Image
-					source={require('../../assets/images/partial-react-logo.png')}
-					style={styles.reactLogo}
-				/>
-			}
-		>
-			<ThemedView style={styles.titleContainer}>
-				<ThemedText type='title'>Welcome Timer Screen!</ThemedText>
-			</ThemedView>
-		</ParallaxScrollView>
+		<ProtectedRoute isFirstRender={false} isAuthenticated={true}>
+			<SafeAreaView
+				style={{
+					flex: 1,
+					// justifyContent: 'flex-start',
+					paddingTop: 24,
+					paddingBottom: 24
+				}}
+			>
+				<Timer />
+			</SafeAreaView>
+		</ProtectedRoute>
 	)
 }
 
