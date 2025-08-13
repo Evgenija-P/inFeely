@@ -1,15 +1,8 @@
 import { Colors } from 'constants/Colors'
-import {
-	ButtonProps,
-	Image,
-	ImageSourcePropType,
-	StyleSheet,
-	Text,
-	TextProps,
-	TouchableOpacity
-} from 'react-native'
+import { Link, LinkProps } from 'expo-router'
+import { Image, ImageSourcePropType, StyleSheet, Text, TextProps } from 'react-native'
 
-export type BaseButtonProps = ButtonProps &
+export type BaseButtonLinkProps = LinkProps &
 	TextProps & {
 		// type?: 'default' | 'title' | 'defaultSemiBold' | 'subtitle' | 'link'
 		className?: string
@@ -19,24 +12,27 @@ export type BaseButtonProps = ButtonProps &
 		bgStyle: 'white' | 'accent'
 		icon?: React.ReactNode
 		imageSource?: ImageSourcePropType
+		href: string
 	}
 
-const BaseButton = ({
+const BaseButtonLink = ({
 	onPress,
 	className,
 	title,
 	isDisabled,
 	bgStyle,
 	icon,
-	imageSource
-}: BaseButtonProps) => {
+	imageSource,
+	href
+}: BaseButtonLinkProps) => {
 	const currenButtonStyle = bgStyle === 'white' ? 'bg-white' : 'bg-accent'
 
 	const currentTextStyle = bgStyle === 'white' ? 'text-primary' : 'text-white'
 
 	return (
-		<TouchableOpacity
+		<Link
 			onPress={onPress}
+			href={href}
 			disabled={isDisabled || false}
 			className={`${className} ${currenButtonStyle} disabled:opacity-50`}
 			style={[styles.button, isDisabled && { opacity: 0.5 }]}
@@ -48,11 +44,11 @@ const BaseButton = ({
 			<Text className={`${currentTextStyle}`} style={styles.buttonText}>
 				{title}
 			</Text>
-		</TouchableOpacity>
+		</Link>
 	)
 }
 
-export default BaseButton
+export default BaseButtonLink
 
 const styles = StyleSheet.create({
 	button: {

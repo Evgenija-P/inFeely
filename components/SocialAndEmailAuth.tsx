@@ -139,7 +139,7 @@ const SocialAndEmailAuth = ({ data, setData }: SlideProps) => {
 					bgStyle='white'
 					imageSource={AppleIcon}
 				/>
-			</View>{' '}
+			</View>
 		</>
 	)
 }

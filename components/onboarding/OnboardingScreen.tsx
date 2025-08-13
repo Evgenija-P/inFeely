@@ -1,5 +1,5 @@
 // OnboardingScreen.tsx
-import ArrowBack from 'components/ArrowBack'
+import Header from 'components/Header'
 import BaseButton from 'components/ui/BaseButton'
 
 import OnboardingScreen1 from './OnboardingScreen1'
@@ -56,12 +56,7 @@ export default function OnboardingScreen() {
 		<SafeAreaView
 			style={{ flex: 1, paddingTop: 32, paddingBottom: 24, justifyContent: 'space-between' }}
 		>
-			<View className='w-full flex flex-row items-center justify-between shrink mb-12'>
-				{/* Кнопка назад */}
-				<View className='w-1/3'>
-					<ArrowBack href='/' />
-				</View>
-
+			<Header style='mb-12'>
 				{/* Пагінація */}
 				<View className='w-1/3 flex flex-row items-center justify-center'>
 					{slides.map((_, i) => (
@@ -78,8 +73,8 @@ export default function OnboardingScreen() {
 						/>
 					))}
 				</View>
-				<View className='w-1/3 ' />
-			</View>
+			</Header>
+
 			<View className='flex-1 justify-between items-center'>
 				<View
 					style={{

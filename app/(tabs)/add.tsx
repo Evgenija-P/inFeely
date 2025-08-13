@@ -1,51 +1,29 @@
-import ParallaxScrollView from 'components/ParallaxScrollView'
+import Header from 'components/Header'
+import MealComponent from 'components/MealComponent'
+import ProtectedRoute from 'components/ProtectedRoute'
 import { ThemedText } from 'components/ThemedText'
-import { ThemedView } from 'components/ThemedView'
-import { Image } from 'expo-image'
-import { StyleSheet } from 'react-native'
 
-// Dummy GoogleLoginButton component for demonstration
+import { useMealContext } from 'contexts/MealContext'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 export default function AddScreen() {
+	console.log('context', useMealContext().state)
 	return (
-		<ParallaxScrollView
-			headerBackgroundColor={{ light: '#0ef1cb', dark: '#d5f714' }}
-			headerImage={
-				<Image
-					source={require('../../assets/images/partial-react-logo.png')}
-					style={styles.reactLogo}
-				/>
-			}
-		>
-			<ThemedView style={styles.titleContainer}>
-				<ThemedText type='title'>Welcome Add Screen!</ThemedText>
-			</ThemedView>
-		</ParallaxScrollView>
+		<ProtectedRoute isFirstRender={false} isAuthenticated={true}>
+			<SafeAreaView
+				style={{
+					flex: 1,
+					justifyContent: 'flex-start',
+					paddingTop: 24,
+					paddingBottom: 24
+				}}
+			>
+				<Header>
+					<ThemedText type='defaultSemiBold'>Add Meal</ThemedText>
+				</Header>
+
+				<MealComponent chapterType='before' />
+			</SafeAreaView>
+		</ProtectedRoute>
 	)
 }
-
-const styles = StyleSheet.create({
-	titleContainer: {
-		flexDirection: 'row',
-		alignItems: 'center',
-		gap: 8
-	},
-	stepContainer: {
-		gap: 8,
-		marginBottom: 8
-	},
-	reactLogo: {
-		height: 178,
-		width: 290,
-		bottom: 0,
-		left: 0,
-		position: 'absolute'
-	},
-	input: {
-		height: 40,
-		margin: 12,
-		borderWidth: 1,
-		padding: 10,
-		backgroundColor: 'white'
-	}
-})

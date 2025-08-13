@@ -17,7 +17,7 @@ const StartScreen = () => {
 					className='w-[157px] h-[56px] mx-auto'
 				/>
 				<ThemedText className='text-primary text-center' type='default'>
-					Track how you feel. <br /> Stay in touch with yourself.{' '}
+					Track how you feel. <br /> Stay in touch with yourself.
 				</ThemedText>
 				<Image
 					source={require('../assets/images/sing_in.png')}
