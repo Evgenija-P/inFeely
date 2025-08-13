@@ -4,12 +4,14 @@ import BaseWrapper from './BaseWrapper'
 import DateTimePickerDetails from './DateTimePickerDetails'
 import EatWith from './EatWith'
 import Eating from './Eating'
+import { MealComponentProps } from './MealComponent'
+import TasteLevel from './TasteLevel'
 import { ThemedText } from './ThemedText'
 
 import { useState } from 'react'
 import { Pressable, StyleSheet, View } from 'react-native'
 
-const DetailsMeal = () => {
+const DetailsMeal = ({ chapterType }: MealComponentProps) => {
 	const [isShowDetails, setIsShowDetails] = useState(false)
 	return (
 		<BaseWrapper style={{ position: 'relative', zIndex: 1 }}>
@@ -31,8 +33,14 @@ const DetailsMeal = () => {
 			{isShowDetails && (
 				<View style={styles.detailsWrapper}>
 					<DateTimePickerDetails />
-					<Eating />
-					<EatWith />
+					{chapterType === 'before' ? (
+						<>
+							<Eating />
+							<EatWith />
+						</>
+					) : (
+						<TasteLevel />
+					)}
 				</View>
 			)}
 		</BaseWrapper>

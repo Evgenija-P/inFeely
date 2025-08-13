@@ -1,20 +1,18 @@
-import MultiSlider from '@ptomasroos/react-native-multi-slider'
-
 import { Bracket } from 'assets/images/icons/icons'
 
 import BaseWrapper from './BaseWrapper'
+import { MealComponentProps } from './MealComponent'
 import MotivationsLabels from './MotivationsLabels'
+import NoteInput from './NoteInput'
 import ReflectionMood from './ReflectionMood'
+import SatisfactionLabels from './SatisfactionLabels'
 import { ThemedText } from './ThemedText'
 
-import { useMealContext } from 'contexts/MealContext'
 import { useState } from 'react'
-import { Dimensions, Pressable, StyleSheet, View } from 'react-native'
+import { Pressable, StyleSheet, View } from 'react-native'
 
-const ReflectionComponent = () => {
-	const { state, setField } = useMealContext()
+const ReflectionComponent = ({ chapterType }: MealComponentProps) => {
 	const [isShowDetails, setIsShowDetails] = useState(false)
-	const screenWidth = Dimensions.get('window').width
 
 	return (
 		<BaseWrapper style={{}}>
@@ -39,8 +37,10 @@ const ReflectionComponent = () => {
 
 				{isShowDetails && (
 					<View style={styles.detailsWrapper}>
-						<MotivationsLabels />
-						<ReflectionMood />
+						{chapterType === 'before' ? <MotivationsLabels /> : <SatisfactionLabels />}
+
+						<ReflectionMood chapterType={chapterType} />
+						<NoteInput chapterType={chapterType} />
 					</View>
 				)}
 			</View>
@@ -54,8 +54,7 @@ const styles = StyleSheet.create({
 	detailsWrapper: {
 		display: 'flex',
 		alignItems: 'center',
-		gap: 32,
-		zIndex: 10
+		gap: 32
 	},
 	arrowBtn: {
 		width: 24,

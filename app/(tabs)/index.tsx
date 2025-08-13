@@ -6,6 +6,7 @@ import BaseLink from 'components/ui/BaseLink'
 
 import { Avatar } from 'assets/images/icons/icons'
 
+import { getGreetingWithName } from 'helpers/getGreeting'
 import { useState } from 'react'
 import { View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -29,7 +30,8 @@ export default function HomeScreen() {
 				<View className='flex flex-row items-center justify-between shrink gap-x-[42px] mb-4'>
 					<View className='flex gap-y-2'>
 						<ThemedText type='title' className='text-primary'>
-							Good morning, Username 🍃
+							{getGreetingWithName('Username')}🍃
+							{/* Good morning, Username  */}
 						</ThemedText>
 						<ThemedText
 							type='default'

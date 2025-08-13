@@ -1,11 +1,12 @@
 import MultiSlider from '@ptomasroos/react-native-multi-slider'
 
-import BaseWrapper from './BaseWrapper'
+import { MealComponentProps } from './MealComponent'
 import { ThemedText } from './ThemedText'
 
 import { Colors } from 'constants/Colors'
 import { useMealContext } from 'contexts/MealContext'
-import { useState } from 'react'
+import { valuePicker } from 'helpers/colorPicker'
+import { getTextByValue } from 'helpers/textPicker'
 import { Dimensions, View } from 'react-native'
 
 const textValues = [
@@ -72,46 +73,32 @@ const textValues = [
 	}
 ]
 
-const ReflectionMood = () => {
+const ReflectionMood = ({ chapterType }: MealComponentProps) => {
 	const { state, setField } = useMealContext()
 
-	const screenWidth = Dimensions.get('window').width
 	const onValuesChange = (values: number[]) => {
-		setField('feelingLevel', values[0])
+		if (chapterType === 'before') {
+			setField('feelingLevelBefore', values[0])
+		} else {
+			setField('feelingLevelAfter', values[0])
+		}
 	}
 
-	const ranges = [
-		{ min: 1, max: 10, color: Colors.light.ellipse_red, index: 1 },
-		{ min: 10, max: 20, color: Colors.light.ellipse_red, index: 2 },
-		{ min: 20, max: 30, color: Colors.light.ellipse_pink, index: 3 },
-		{ min: 30, max: 40, color: Colors.light.ellipse_pink, index: 4 },
-		{ min: 40, max: 50, color: Colors.light.ellipse_yellow, index: 5 },
-		{ min: 50, max: 60, color: Colors.light.ellipse_yellow, index: 6 },
-		{ min: 60, max: 70, color: Colors.light.ellipse_green, index: 7 },
-		{ min: 70, max: 80, color: Colors.light.ellipse_green, index: 8 },
-		{ min: 80, max: 90, color: Colors.light.ellipse_dark_green, index: 9 },
-		{ min: 90, max: 101, color: Colors.light.ellipse_dark_green, index: 10 }
-	]
-
-	const valuePicker = (point?: number) => {
-		if (typeof point !== 'number' || point < 0 || point > 100) return undefined
-		const range = ranges.find(r => point >= r.min && point < r.max)
-		return range?.color
-	}
-
-	const getTextByValue = (point: number) => {
-		if (typeof point !== 'number' || point < 0 || point > 100) return undefined
-		const range = ranges.find(r => point >= r.min && point < r.max)
-		if (!range) return textValues[0]
-
-		if (range.index === undefined) return textValues[0]
-		if (range.index >= textValues.length) return textValues[textValues.length - 1]
-		return textValues[range.index] || textValues[0]
-	}
-	const { title, text } = getTextByValue(state.feelingLevel) || textValues[0]
+	const { title, text } =
+		getTextByValue(
+			chapterType === 'before' ? state.feelingLevelBefore : state.feelingLevelAfter,
+			textValues
+		) || textValues[0]
 
 	return (
-		<BaseWrapper style={{}}>
+		<View
+			style={{
+				width: '100%',
+				display: 'flex',
+				alignItems: 'center',
+				justifyContent: 'center'
+			}}
+		>
 			<View style={{ gap: 8 }}>
 				<ThemedText type='defaultMedium' style={{ textAlign: 'center' }}>
 					How are you feeling right now?
@@ -153,8 +140,12 @@ const ReflectionMood = () => {
 					{title}
 				</ThemedText>
 				<MultiSlider
-					values={[state.feelingLevel || 0]}
-					sliderLength={screenWidth - 64}
+					values={[
+						chapterType === 'before'
+							? state.feelingLevelBefore
+							: state.feelingLevelAfter || 0
+					]}
+					sliderLength={Dimensions.get('window').width * 0.85}
 					onValuesChange={onValuesChange}
 					min={0}
 					max={100}
@@ -164,7 +155,11 @@ const ReflectionMood = () => {
 					containerStyle={{ height: 20 }}
 					selectedStyle={{
 						backgroundColor:
-							valuePicker(state.feelingLevel) ?? Colors.light.ellipse_lite,
+							valuePicker(
+								chapterType === 'before'
+									? state.feelingLevelBefore
+									: state.feelingLevelAfter
+							) ?? Colors.light.ellipse_lite,
 						height: 16,
 						borderRadius: 16
 					}}
@@ -178,14 +173,19 @@ const ReflectionMood = () => {
 						width: 16,
 						borderRadius: 16,
 						borderWidth: 2,
-						borderColor: valuePicker(state.feelingLevel) ?? Colors.light.ellipse_lite,
+						borderColor:
+							valuePicker(
+								chapterType === 'before'
+									? state.feelingLevelBefore
+									: state.feelingLevelAfter
+							) ?? Colors.light.ellipse_lite,
 						backgroundColor: 'white',
 						top: 8,
 						boxShadow: '0px 0px 0px 2px rgba(255, 255, 255)'
 					}}
 				/>
 			</View>
-		</BaseWrapper>
+		</View>
 	)
 }
 

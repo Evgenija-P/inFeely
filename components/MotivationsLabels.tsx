@@ -50,7 +50,7 @@ const MotivationsLabels = () => {
 						isActive={isActiveLabel}
 						fnc={() => toggleMotivation(lab)}
 					/>
-				))}{' '}
+				))}
 				<Pressable
 					onPress={() => setField('motivation', 'other')}
 					style={{
@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
 		gap: 8,
 		justifyContent: 'center',
 		alignItems: 'center',
-		marginTop: 32
+		marginTop: 24
 	},
 	labelWrapper: {
 		width: '100%',

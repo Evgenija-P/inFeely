@@ -3,9 +3,11 @@ import MealComponent from 'components/MealComponent'
 import ProtectedRoute from 'components/ProtectedRoute'
 import { ThemedText } from 'components/ThemedText'
 
+import { useMealContext } from 'contexts/MealContext'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 export default function AddScreen() {
+	console.log('context', useMealContext().state)
 	return (
 		<ProtectedRoute isFirstRender={false} isAuthenticated={true}>
 			<SafeAreaView
@@ -20,7 +22,7 @@ export default function AddScreen() {
 					<ThemedText type='defaultSemiBold'>Add Meal</ThemedText>
 				</Header>
 
-				<MealComponent />
+				<MealComponent chapterType='before' />
 			</SafeAreaView>
 		</ProtectedRoute>
 	)

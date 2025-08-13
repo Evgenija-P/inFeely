@@ -11,7 +11,7 @@ const ranges = [
 	{ min: 90, max: 101, index: 10 }
 ]
 
-export const getTextByValue = (point: number, textValues: string[]) => {
+export const getTextByValue = (point: number, textValues: { title: string; text: string[] }[]) => {
 	if (typeof point !== 'number' || point < 0 || point > 100) return undefined
 	const range = ranges.find(r => point >= r.min && point < r.max)
 	if (!range) return textValues[0]

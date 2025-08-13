@@ -1,15 +1,19 @@
 import { ThemedText } from 'components/ThemedText'
 
 import { Colors } from 'constants/Colors'
-import { StyleSheet, TouchableOpacity, TouchableOpacityProps } from 'react-native'
+import { Dimensions, StyleSheet, TouchableOpacity, TouchableOpacityProps } from 'react-native'
 
 export type BaseLabelButtonProps = TouchableOpacityProps & {
 	label: string
 	isActive: (label: string) => boolean
 	fnc: () => void
+	widthValue?: number
 }
 
-const BaseLabelButton = ({ label, isActive, fnc }: BaseLabelButtonProps) => {
+const BaseLabelButton = ({ label, isActive, fnc, widthValue }: BaseLabelButtonProps) => {
+	const screenWidth = Dimensions.get('window').width - 16 * 4 - 8 * 2
+	const buttonWidth = screenWidth * (widthValue || 0.32)
+
 	return (
 		<TouchableOpacity
 			style={[
@@ -17,7 +21,8 @@ const BaseLabelButton = ({ label, isActive, fnc }: BaseLabelButtonProps) => {
 				isActive(label) && {
 					opacity: 1,
 					backgroundColor: Colors.light.accent
-				}
+				},
+				{ width: buttonWidth }
 			]}
 			activeOpacity={0.8}
 			onPress={() => fnc()}
@@ -42,7 +47,7 @@ export default BaseLabelButton
 
 const styles = StyleSheet.create({
 	label: {
-		width: '32%',
+		// width: '32%',
 		height: 38,
 		display: 'flex',
 		justifyContent: 'center',

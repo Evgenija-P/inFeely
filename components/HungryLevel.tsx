@@ -1,11 +1,11 @@
 import MultiSlider from '@ptomasroos/react-native-multi-slider'
 
 import BaseWrapper from './BaseWrapper'
+import { MealComponentProps } from './MealComponent'
 import { ThemedText } from './ThemedText'
 
 import { Colors } from 'constants/Colors'
 import { useMealContext } from 'contexts/MealContext'
-import { useState } from 'react'
 import { Dimensions, View } from 'react-native'
 
 const textValues = [
@@ -68,50 +68,57 @@ const textValues = [
 	}
 ]
 
-const HungryLevel = () => {
+const ranges = [
+	{ min: 1, max: 9, color: Colors.light.ellipse_red, index: 1 },
+	{ min: 9, max: 18, color: Colors.light.ellipse_pink, index: 2 },
+	{ min: 18, max: 27, color: Colors.light.ellipse_yellow, index: 3 },
+	{ min: 27, max: 36, color: Colors.light.ellipse_green, index: 4 },
+	{ min: 36, max: 45, color: Colors.light.ellipse_dark_green, index: 5 },
+	{ min: 45, max: 54, color: Colors.light.ellipse_dark_green, index: 6 },
+	{ min: 54, max: 63, color: Colors.light.ellipse_dark_green, index: 7 },
+	{ min: 63, max: 72, color: Colors.light.ellipse_green, index: 8 },
+	{ min: 72, max: 81, color: Colors.light.ellipse_yellow, index: 9 },
+	{ min: 81, max: 90, color: Colors.light.ellipse_pink, index: 10 },
+	{ min: 90, max: 101, color: Colors.light.ellipse_red, index: 11 }
+]
+
+const valuePicker = (point?: number) => {
+	if (typeof point !== 'number' || point < 0 || point > 100) return undefined
+	const range = ranges.find(r => point >= r.min && point < r.max)
+	return range?.color
+}
+
+const getTextByValue = (point: number) => {
+	if (typeof point !== 'number' || point < 0 || point > 100) return undefined
+	const range = ranges.find(r => point >= r.min && point < r.max)
+	if (!range) return textValues[0]
+
+	if (range.index === undefined) return textValues[0]
+	if (range.index >= textValues.length) return textValues[textValues.length - 1]
+	return textValues[range.index] || textValues[0]
+}
+
+const HungryLevel = ({ chapterType }: MealComponentProps) => {
 	const { state, setField } = useMealContext()
 
 	const screenWidth = Dimensions.get('window').width
 	const onValuesChange = (values: number[]) => {
-		setField('hungryLevel', values[0])
+		if (chapterType === 'before') {
+			setField('hungryLevel', values[0])
+		} else {
+			setField('fullLevel', values[0])
+		}
 	}
 
-	const ranges = [
-		{ min: 1, max: 9, color: Colors.light.ellipse_red, index: 1 },
-		{ min: 9, max: 18, color: Colors.light.ellipse_pink, index: 2 },
-		{ min: 18, max: 27, color: Colors.light.ellipse_yellow, index: 3 },
-		{ min: 27, max: 36, color: Colors.light.ellipse_green, index: 4 },
-		{ min: 36, max: 45, color: Colors.light.ellipse_dark_green, index: 5 },
-		{ min: 45, max: 54, color: Colors.light.ellipse_dark_green, index: 6 },
-		{ min: 54, max: 63, color: Colors.light.ellipse_dark_green, index: 7 },
-		{ min: 63, max: 72, color: Colors.light.ellipse_green, index: 8 },
-		{ min: 72, max: 81, color: Colors.light.ellipse_yellow, index: 9 },
-		{ min: 81, max: 90, color: Colors.light.ellipse_pink, index: 10 },
-		{ min: 90, max: 101, color: Colors.light.ellipse_red, index: 11 }
-	]
-
-	const valuePicker = (point?: number) => {
-		if (typeof point !== 'number' || point < 0 || point > 100) return undefined
-		const range = ranges.find(r => point >= r.min && point < r.max)
-		return range?.color
-	}
-
-	const getTextByValue = (point: number) => {
-		if (typeof point !== 'number' || point < 0 || point > 100) return undefined
-		const range = ranges.find(r => point >= r.min && point < r.max)
-		if (!range) return textValues[0]
-
-		if (range.index === undefined) return textValues[0]
-		if (range.index >= textValues.length) return textValues[textValues.length - 1]
-		return textValues[range.index] || textValues[0]
-	}
-	const { title, text } = getTextByValue(state.hungryLevel) || textValues[0]
+	const { title, text } =
+		getTextByValue(chapterType === 'before' ? state.hungryLevel : state.fullLevel) ||
+		textValues[0]
 
 	return (
 		<BaseWrapper style={{}}>
 			<View style={{ gap: 8 }}>
 				<ThemedText type='defaultMedium' style={{ textAlign: 'center' }}>
-					How hungry are you?
+					{chapterType === 'after' ? 'How full are you?' : '	How hungry are you?'}
 				</ThemedText>
 
 				<View>
@@ -150,7 +157,7 @@ const HungryLevel = () => {
 					{title}
 				</ThemedText>
 				<MultiSlider
-					values={[state.hungryLevel || 0]}
+					values={[chapterType === 'before' ? state.hungryLevel : state.fullLevel || 0]}
 					sliderLength={screenWidth - 64}
 					onValuesChange={onValuesChange}
 					min={0}
@@ -161,7 +168,9 @@ const HungryLevel = () => {
 					containerStyle={{ height: 20 }}
 					selectedStyle={{
 						backgroundColor:
-							valuePicker(state.hungryLevel) ?? Colors.light.ellipse_lite,
+							valuePicker(
+								chapterType === 'before' ? state.hungryLevel : state.fullLevel
+							) ?? Colors.light.ellipse_lite,
 						height: 16,
 						borderRadius: 16
 					}}
@@ -175,7 +184,10 @@ const HungryLevel = () => {
 						width: 16,
 						borderRadius: 16,
 						borderWidth: 2,
-						borderColor: valuePicker(state.hungryLevel) ?? Colors.light.ellipse_lite,
+						borderColor:
+							valuePicker(
+								chapterType === 'before' ? state.hungryLevel : state.fullLevel
+							) ?? Colors.light.ellipse_lite,
 						backgroundColor: 'white',
 						top: 8,
 						boxShadow: '0px 0px 0px 2px rgba(255, 255, 255)'
