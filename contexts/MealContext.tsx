@@ -17,6 +17,7 @@ type MealState = {
 	tasteLevel: number
 	fullLevel: number
 	satisfactionLevel: string
+	timeForEating: number
 }
 
 type MealAction = { type: 'SET_FIELD'; field: keyof MealState; value: any } | { type: 'RESET' }
@@ -45,7 +46,8 @@ const initialState: MealState = {
 	noteAfter: '',
 	tasteLevel: 0,
 	fullLevel: 0,
-	satisfactionLevel: ''
+	satisfactionLevel: '',
+	timeForEating: 0
 }
 
 function mealReducer(state: MealState, action: MealAction): MealState {

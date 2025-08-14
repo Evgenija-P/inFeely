@@ -1,6 +1,6 @@
 import { Plus } from 'assets/images/icons/icons'
 
-import CircularTimePicker from './CircularTimePicker'
+import CircularTimer from './CircularTimer'
 import { ThemedText } from './ThemedText'
 
 import { Colors } from 'constants/Colors'
@@ -83,7 +83,7 @@ const Timer = () => {
 					{ color: 'yellowgreen', value: 100 }
 				]}
 			/> */}
-			<CircularTimePicker />
+			<CircularTimer />
 		</View>
 	)
 }
