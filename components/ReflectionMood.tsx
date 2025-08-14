@@ -17,58 +17,65 @@ const textValues = [
 	{
 		title: 'Shame 😔',
 		text: [
-			'I feel bad about myself.","I regret eating or how I act. I want to hide or disappear.'
+			'I feel bad about myself.',
+			'I regret eating or how I act. I want to hide or disappear.'
 		]
 	},
 	{
 		title: 'Guilt 😞',
 		text: [
-			'I do something wrong.","I feel like I break a rule or mess up. There’s a heavy feeling in my chest.'
+			'I do something wrong.',
+			'I feel like I break a rule or mess up. There’s a heavy feeling in my chest.'
 		]
 	},
 	{
 		title: 'Disappointed 😕',
 		text: [
-			'It’s not what I want.","The food doesn’t satisfy me or I expect something else. I feel let down.'
+			'It’s not what I want.',
+			'The food doesn’t satisfy me or I expect something else. I feel let down.'
 		]
 	},
 	{
 		title: 'Angry 😠',
 		text: [
-			'Something feels unfair or out of control.","I feel tension, frustration, or irritation. I might want to act out or shut down.'
+			'Something feels unfair or out of control.',
+			'I feel tension, frustration, or irritation. I might want to act out or shut down.'
 		]
 	},
 	{
 		title: 'Neutral 😐',
-		text: ['I feel nothing special.","There’s no strong emotion. I just exist in this moment.']
+		text: ['I feel nothing special.', 'There’s no strong emotion. I just exist in this moment.']
 	},
-
 	{
 		title: 'Relief 😌',
-		text: ['I feel lighter now.","Something eases inside me. The tension fades.']
+		text: ['I feel lighter now.', 'Something eases inside me. The tension fades.']
 	},
 	{
 		title: 'Satisfied 🙂',
 		text: [
-			'I give my body what it needs.","I feel okay, balanced, and not too full. Everything feels right.'
+			'I give my body what it needs.',
+			'I feel okay, balanced, and not too full. Everything feels right.'
 		]
 	},
 	{
 		title: 'Calm 😊',
 		text: [
-			'I feel peaceful.","My mind is quiet, there’s no stress around eating. I feel stable.'
+			'I feel peaceful.',
+			'My mind is quiet, there’s no stress around eating. I feel stable.'
 		]
 	},
 	{
 		title: 'Happy 😄',
 		text: [
-			'I enjoy the food and feel good.","It lifts my mood or gives energy. I smile inside.'
+			'I enjoy the food and feel good.',
+			'It lifts my mood or gives energy. I smile inside.'
 		]
 	},
 	{
 		title: 'Grateful 🥰',
 		text: [
-			'I feel thankful for this meal.","There’s care, love, or comfort here. I feel connected.'
+			'I feel thankful for this meal.',
+			'There’s care, love, or comfort here. I feel connected.'
 		]
 	}
 ]

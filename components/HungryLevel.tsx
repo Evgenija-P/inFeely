@@ -15,7 +15,7 @@ const textValues = [
 	},
 	{
 		title: 'Hangry',
-		text: ['I feel irritated and impatient.', ' Hunger makes me lose my temper quickly.']
+		text: ['I feel irritated and impatient.', 'Hunger makes me lose my temper quickly.']
 	},
 	{
 		title: 'Starving',

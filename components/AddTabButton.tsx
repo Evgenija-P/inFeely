@@ -1,18 +1,12 @@
-import { BottomTabBarButtonProps } from '@react-navigation/bottom-tabs'
-
 import { Add } from 'assets/images/icons/icons'
 
+import { router } from 'expo-router'
 import { Pressable, StyleSheet, View } from 'react-native'
 
-export default function AddTabButton(props: BottomTabBarButtonProps) {
+export default function AddTabButton() {
 	return (
 		<View style={styles.wrapper}>
-			<Pressable
-				style={styles.button}
-				onPress={props.onPress}
-				accessibilityLabel={props.accessibilityLabel}
-				testID={props.testID}
-			>
+			<Pressable style={styles.button} onPress={() => router.push('/add')}>
 				<Add />
 			</Pressable>
 		</View>

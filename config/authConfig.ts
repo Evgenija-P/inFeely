@@ -17,6 +17,6 @@ export const googleAuthConfig = {
 	clientId: process.env.APP_GOOGLE_CLIENT_ID,
 	redirectUri: makeRedirectUri({ scheme: 'infeely' }),
 	scopes: ['openid', 'profile', 'email'],
-	responseType: 'code', // для PKCE
+	responseType: 'code',
 	usePKCE: true
 }

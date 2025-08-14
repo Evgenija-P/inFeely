@@ -82,6 +82,7 @@ const SocialAndEmailAuth = ({ data, setData }: SlideProps) => {
 	const onRegistration = async () => {
 		const { isChangePeriod, ...rest } = data
 		const formData: FormData = rest
+
 		console.log('formData', formData)
 		try {
 			const response = await fetch(`${BASE_URL}/api/auth/register`, {

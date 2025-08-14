@@ -10,12 +10,12 @@ import { Dimensions, View } from 'react-native'
 
 const textValues = [
 	{
-		title: 'Don’t know',
+		title: "Don't know",
 		text: ['', '']
 	},
 	{
 		title: 'Disgusting 🤢',
-		text: ['Really unpleasant — ', 'hard to eat or finish.']
+		text: ['Really unpleasant —', 'hard to eat or finish.']
 	},
 	{
 		title: 'Greasy 🍟',
@@ -23,36 +23,35 @@ const textValues = [
 	},
 	{
 		title: 'Too Sweet 🍬',
-		text: ['Sugar stands out too much —', 'it`s overwhelming and hard to enjoy.']
+		text: ['Sugar stands out too much —', "it's overwhelming and hard to enjoy."]
 	},
 	{
 		title: 'Too Salty 🧂',
-		text: ['The saltiness is overpowering', 'and distracts from the flavor.']
+		text: ['The saltiness is overpowering —', 'and distracts from the flavor.']
 	},
 	{
 		title: 'Flavorless 😐',
-		text: ['The food tastes bland — ', 'lacks spices or character.']
+		text: ['The food tastes bland —', 'lacks spices or character.']
 	},
-
 	{
 		title: 'Okay 🙂',
-		text: ['The food is fine — ', 'not special, but it gets the job done.']
+		text: ['The food is fine —', 'not special, but it gets the job done.']
 	},
 	{
 		title: 'Fresh 🥗',
-		text: ['Tastes clean, light, and natural — ', 'refreshing to eat.']
+		text: ['Tastes clean, light, and natural —', 'refreshing to eat.']
 	},
 	{
 		title: 'Comforting 🫶',
-		text: ['Feels warm, familiar, and soothing — ', 'like a hug from the inside.']
+		text: ['Feels warm, familiar, and soothing —', 'like a hug from the inside.']
 	},
 	{
 		title: 'Tasty 🤤',
-		text: ['Full of flavor and enjoyable — ', 'hits the spot perfectly.']
+		text: ['Full of flavor and enjoyable —', 'hits the spot perfectly.']
 	},
 	{
 		title: 'Delicious 😋',
-		text: ['This meal tastes amazing and satisfying — ', 'it`s a pleasure to eat.']
+		text: ['This meal tastes amazing and satisfying —', "it's a pleasure to eat."]
 	}
 ]
 

@@ -14,7 +14,7 @@ const WelcomeLoaderScreen = () => {
 		}, 1500)
 
 		return () => clearTimeout(timeoutWelcomeScreen)
-	}, [])
+	}, [router])
 
 	return (
 		<View style={{ width: '100%', flex: 1, justifyContent: 'center', alignItems: 'center' }}>

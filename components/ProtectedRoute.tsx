@@ -1,5 +1,6 @@
 import { useRouter } from 'expo-router'
 import { useEffect, useState } from 'react'
+import { View } from 'react-native'
 
 type Props = {
 	isAuthenticated?: boolean
@@ -30,5 +31,5 @@ export default function ProtectedRoute({ isAuthenticated, isFirstRender, childre
 
 	if (!mounted) return null
 
-	return <>{children}</>
+	return <View>{children}</View>
 }

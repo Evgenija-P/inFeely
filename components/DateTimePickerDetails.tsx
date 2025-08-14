@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import CalendarComponent from './CalendarComponent'
 import { ThemedText } from './ThemedText'
 

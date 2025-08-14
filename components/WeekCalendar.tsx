@@ -8,7 +8,6 @@ import { FlatList, StyleSheet, Text, View } from 'react-native'
 export default function WeekCalendar() {
 	const today = dayjs()
 
-	// Генеруємо масив дат: 3 дні до сьогодні, сьогодні, 3 дні після
 	const weekDays = useMemo(() => {
 		let days = []
 		for (let i = -3; i <= 3; i++) {

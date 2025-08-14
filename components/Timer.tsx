@@ -11,29 +11,11 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 const Timer = () => {
 	const { state, setField } = useMealContext()
 	const [isShowModal, setIsShowModal] = useState(false)
-	// const progressRef = useRef<ProgressRef>(null)
 
 	const toggleModal = () => {
 		setIsShowModal(!isShowModal)
 		console.log('Modal toggled:', !isShowModal)
 	}
-
-	// const onPlayTimer = () => {
-	// 	if (progressRef.current) {
-	// 		progressRef.current.play()
-	// 	}
-	// }
-
-	// const onPauseTimer = () => {
-	// 	if (progressRef.current) {
-	// 		progressRef.current.pause()
-	// 	}
-	// }
-	// const resetTimer = () => {
-	// 	if (progressRef.current) {
-	// 		progressRef.current.reAnimate()
-	// 	}
-	// }
 
 	return (
 		<View style={styles.container}>
@@ -71,18 +53,7 @@ const Timer = () => {
 					<Text style={{ fontSize: 14, fontFamily: 'OnestMedium' }}>Add Meal</Text>
 				</TouchableOpacity>
 			)}
-			{/* <CircularProgress
-				ref={progressRef}
-				value={100}
-				radius={120}
-				progressValueColor={'#fff'}
-				duration={10000}
-				strokeColorConfig={[
-					{ color: 'red', value: 0 },
-					{ color: 'skyblue', value: 50 },
-					{ color: 'yellowgreen', value: 100 }
-				]}
-			/> */}
+
 			<CircularTimer />
 		</View>
 	)
@@ -95,8 +66,6 @@ const styles = StyleSheet.create({
 		flex: 1,
 		alignItems: 'center',
 		justifyContent: 'center'
-
-		// paddingTop: 24
 	},
 	button: {
 		display: 'flex',
