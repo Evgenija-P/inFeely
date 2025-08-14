@@ -6,6 +6,7 @@ import BaseLink from 'components/ui/BaseLink'
 
 import { Avatar } from 'assets/images/icons/icons'
 
+import { useAuth } from 'contexts/AuthContext'
 import { getGreetingWithName } from 'helpers/getGreeting'
 import { useState } from 'react'
 import { View } from 'react-native'
@@ -13,11 +14,12 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 
 export default function HomeScreen() {
 	const [isEmpty, setIsEmpty] = useState(true)
-	const isAuthenticated = true
-	const firstRender = false
+	const { token, user } = useAuth()
+	const isAuthenticated = token !== null && token !== undefined && token !== ''
+	const firstRender = user?.isFirstRender || true
 
 	return (
-		<ProtectedRoute isFirstRender={false} isAuthenticated={true}>
+		<ProtectedRoute isFirstRender={firstRender} isAuthenticated={isAuthenticated}>
 			<SafeAreaView
 				style={{
 					flex: 1,

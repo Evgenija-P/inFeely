@@ -12,6 +12,8 @@ import { discovery, googleAuthConfig } from 'config/authConfig'
 
 import { OnboardingData, SlideProps } from './onboarding/OnboardingScreen'
 
+import { BASE_URL } from 'constants/API'
+import { useAuth } from 'contexts/AuthContext'
 import { exchangeCodeAsync, useAuthRequest } from 'expo-auth-session'
 import { useRouter } from 'expo-router'
 import * as WebBrowser from 'expo-web-browser'
@@ -23,6 +25,7 @@ WebBrowser.maybeCompleteAuthSession()
 type FormData = Omit<OnboardingData, 'isChangePeriod'>
 
 const SocialAndEmailAuth = ({ data, setData }: SlideProps) => {
+	const { login } = useAuth()
 	const router = useRouter()
 	const [isValidValues, setIsValidValues] = useState({ email: false, password: false })
 
@@ -76,13 +79,34 @@ const SocialAndEmailAuth = ({ data, setData }: SlideProps) => {
 			pathname: '/welcome'
 		})
 	}
-	const onRegistration = () => {
+	const onRegistration = async () => {
 		const { isChangePeriod, ...rest } = data
 		const formData: FormData = rest
 		console.log('formData', formData)
-		router.replace({
-			pathname: '/welcome'
-		})
+		try {
+			const response = await fetch(`${BASE_URL}/api/auth/register`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify(formData)
+			})
+
+			if (!response.ok) {
+				throw new Error('Failed to register')
+			}
+
+			const result = await response.json()
+			login(result.user, result.token)
+
+			console.log('Registration successful:', result)
+
+			router.replace({
+				pathname: '/welcome'
+			})
+		} catch (error) {
+			console.error('Registration error:', error)
+		}
 	}
 
 	const disabled =
