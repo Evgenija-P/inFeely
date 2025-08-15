@@ -6,8 +6,10 @@ import DetailsMeal from './DetailsMeal'
 import HungryLevel from './HungryLevel'
 import MealLabel from './MealLabel'
 import ReflectionComponent from './Reflection'
+import BaseButton from './ui/BaseButton'
 import BaseButtonLink from './ui/BseButtonLink'
 
+import { BASE_URL } from 'constants/API'
 import { Colors } from 'constants/Colors'
 import { useMealContext } from 'contexts/MealContext'
 import { useEffect, useState } from 'react'
@@ -45,6 +47,13 @@ const MealComponent = ({ chapterType }: MealComponentProps) => {
 	const [isShowButtonsBefore, setIsShowButtonsBefore] = useState(false)
 	const [isShowButtonsAfter, setIsShowButtonsAfter] = useState(false)
 
+	const token =
+		'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODlmM2MxMDQ5MDkyMWY1ODgwYTk5N2QiLCJlbWFpbCI6InRlc3QxMUBnbWFpbC5jb20iLCJpYXQiOjE3NTUyNjYwNjQsImV4cCI6MTc1Nzg1ODA2NH0.vpLE5mek2mhpqitk4zXmLCRpj7kSu0tn4A9Y-JJE_8E'
+
+	const user = {
+		_id: '689f3c10490921f5880a997d'
+	}
+
 	useEffect(() => {
 		setIsShowButtonsBefore(!!(state.label && state.hungryLevel))
 	}, [state.label, state.hungryLevel])
@@ -56,6 +65,39 @@ const MealComponent = ({ chapterType }: MealComponentProps) => {
 	const handleReset = () => {
 		dispatch({ type: 'RESET' })
 		setSelected('before')
+	}
+
+	const createMeal = async () => {
+		const mealData = {
+			...state,
+			// прибираємо date, якщо він не потрібен
+			date: undefined
+		}
+
+		console.log('Creating meal with data:', mealData)
+
+		try {
+			const response = await fetch(`${BASE_URL}/meal`, {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					Authorization: `Bearer ${token}`
+				},
+				body: JSON.stringify(mealData) // відправляємо весь state у JSON
+			})
+
+			if (!response.ok) {
+				const errorData = await response.json()
+				throw new Error(errorData.message || 'Failed to create meal')
+			}
+
+			const data = await response.json()
+			console.log('Meal created successfully:', data)
+			handleReset()
+			router.push('/')
+		} catch (error) {
+			console.error('Error creating meal:', error)
+		}
 	}
 
 	return (
@@ -82,31 +124,26 @@ const MealComponent = ({ chapterType }: MealComponentProps) => {
 			{selected === 'before' && isShowButtonsBefore && (
 				<View style={{ width: '100%', gap: 8 }}>
 					<BaseButtonLink bgStyle='accent' title='Eat with timer' href={'/timer'} />
-					<BaseButtonLink bgStyle='white' title='save and complete later' href={'/'} />
+					<BaseButton
+						bgStyle='white'
+						title='save and complete later'
+						onPress={createMeal}
+					/>
 				</View>
 			)}
 			{selected === 'after' && isShowButtonsAfter && (
 				<View style={{ width: '100%', gap: 8 }}>
-					<BaseButtonLink
-						bgStyle='accent'
-						title='save'
-						href={'/'}
-						onPress={handleReset}
-					/>
+					<BaseButton bgStyle='accent' title='save' onPress={createMeal} />
 				</View>
 			)}
 		</ScrollView>
 	)
 }
 
+export default MealComponent
+
 const styles = StyleSheet.create({
-	container: {
-		// flex: 1,
-		alignItems: 'center',
-		justifyContent: 'space-between',
-		gap: 16
-		// paddingTop: 24
-	},
+	container: { alignItems: 'center', justifyContent: 'space-between', gap: 16 },
 	buttonWrapper: {
 		height: 48,
 		padding: 2,
@@ -128,11 +165,5 @@ const styles = StyleSheet.create({
 		justifyContent: 'center',
 		alignItems: 'center'
 	},
-	buttonText: {
-		fontSize: 14,
-		lineHeight: 22,
-		fontFamily: 'OnestMedium'
-	}
+	buttonText: { fontSize: 14, lineHeight: 22, fontFamily: 'OnestMedium' }
 })
-
-export default MealComponent

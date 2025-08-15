@@ -1,66 +1,24 @@
-// import { DefaultTheme, ThemeProvider } from '@react-navigation/native'
-// // import Footer from 'components/Footer'
-// import '../global.css'
-// import { Colors } from 'constants/Colors'
-// import { AuthProvider } from 'contexts/AuthContext'
-// import { MealProvider } from 'contexts/MealContext'
-// import { Colors } from 'constants/Colors'
-// import { AuthProvider } from 'contexts/AuthContext'
-// import { MealProvider } from 'contexts/MealContext'
-// import { useFonts } from 'expo-font'
-// import { Stack } from 'expo-router'
-// import { Stack } from 'expo-router'
-// import { StatusBar } from 'expo-status-bar'
-// import { SafeAreaView, View } from 'react-native'
-// import 'react-native-reanimated'
-// export default function RootLayout() {
-// 	return (
-// 		<SafeAreaView
-// 			style={{
-// 				flex: 1,
-// 				backgroundColor: Colors[colorScheme].background,
-// 				paddingHorizontal: 16
-// 			}}
-// 		>
-// 			<ThemeProvider value={DefaultTheme}>
-// 				<AuthProvider>
-// 					<MealProvider>
-// 						<View style={{ flex: 1 }}>
-// 							{/* Main content */}
-// 							<View style={{ flex: 1 }}>
-// 								<Stack>
-// 									<Stack.Screen name='(tabs)' options={{ headerShown: false }} />
-// 									<Stack.Screen
-// 										name='start_page'
-// 										options={{ headerShown: false }}
-// 									/>
-// 									<Stack.Screen name='welcome' options={{ headerShown: false }} />
-// 									<Stack.Screen name='sing_up' options={{ headerShown: false }} />
-// 									<Stack.Screen name='+not-found' />
-// 								</Stack>
-// 							</View>
-// 							{/* Footer */}
-// 							{/* <Footer /> */}
-// 						</View>
-// 						<StatusBar style='auto' />
-// 					</MealProvider>
-// 				</AuthProvider>
-// 			</ThemeProvider>
-// 		</SafeAreaView>
-// 	)
-// }
 import TabLayout from './(tabs)/_layout'
+import SingInScreen from './sing_in'
+import StartScreen from './start_page'
 
 import { Colors } from 'constants/Colors'
-import { AuthProvider } from 'contexts/AuthContext'
+import { AuthProvider, useAuth } from 'contexts/AuthContext'
 import { MealProvider } from 'contexts/MealContext'
 import { useFonts } from 'expo-font'
 import { StatusBar } from 'expo-status-bar'
 import { SafeAreaView } from 'react-native'
 
-// твій Tabs компонент
+const AppContent = () => {
+	// const { token, user } = useAuth()
+	const token =
+		'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2ODlmM2MxMDQ5MDkyMWY1ODgwYTk5N2QiLCJlbWFpbCI6InRlc3QxMUBnbWFpbC5jb20iLCJpYXQiOjE3NTUyNjYwNjQsImV4cCI6MTc1Nzg1ODA2NH0.vpLE5mek2mhpqitk4zXmLCRpj7kSu0tn4A9Y-JJE_8E'
 
-export default function RootLayout() {
+	const user = {
+		_id: '689f3c10490921f5880a997d'
+	}
+	console.log('token, user', token, user)
+
 	const [loaded] = useFonts({
 		OnestRegular: require('../assets/fonts/Onest-Regular.ttf'),
 		OnestMedium: require('../assets/fonts/Onest-Medium.ttf'),
@@ -70,6 +28,20 @@ export default function RootLayout() {
 
 	if (!loaded) return null
 
+	// if (!loaded) return <SplashScreen />
+
+	if (!token) {
+		return <StartScreen />
+	}
+
+	// if (!user?.isFirstRender) {
+	// 	return <SingInScreen />
+	// }
+
+	return <TabLayout />
+}
+
+export default function RootLayout() {
 	const colorScheme = 'light'
 
 	return (
@@ -83,7 +55,9 @@ export default function RootLayout() {
 			<AuthProvider>
 				<MealProvider>
 					{/* Примусово рендеримо Tabs */}
-					<TabLayout />
+					{/* <TabLayout /> */}
+					<AppContent />
+					{/* <StatusBar style="auto" /> */}
 					<StatusBar style='auto' />
 				</MealProvider>
 			</AuthProvider>

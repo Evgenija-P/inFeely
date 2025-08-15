@@ -34,7 +34,7 @@ const initialState: MealState = {
 	label: '',
 	description: '',
 	date: '',
-	images: [],
+	images: [null, null, null],
 	dateTime: '',
 	place: '',
 	eatWith: '',

@@ -3,11 +3,13 @@ import { Plus, Trash } from 'assets/images/icons/icons'
 import { ThemedText } from './ThemedText'
 
 import { Colors } from 'constants/Colors'
+import { useMealContext } from 'contexts/MealContext'
 import * as ImagePicker from 'expo-image-picker'
 import { useState } from 'react'
 import { Image, StyleSheet, TouchableOpacity, View } from 'react-native'
 
 const AddImageInMeal = () => {
+	const { state, setField } = useMealContext()
 	const [images, setImages] = useState<(string | null)[]>([null, null, null])
 	const [showDeleteIndex, setShowDeleteIndex] = useState<number | null>(null)
 
@@ -23,13 +25,14 @@ const AddImageInMeal = () => {
 		if (!result.canceled && result.assets.length > 0) {
 			const uri = result.assets[0].uri
 
-			// Додаємо зображення у перший вільний слот
 			setImages(prev => {
 				const updated = [...prev]
 				const firstEmptyIndex = updated.findIndex(item => item === null)
 				if (firstEmptyIndex !== -1) {
 					updated[firstEmptyIndex] = uri
 				}
+				// синхронізація з контекстом
+				setField('images', updated.filter(Boolean))
 				return updated
 			})
 		}
@@ -38,12 +41,15 @@ const AddImageInMeal = () => {
 	const handleRemoveImage = (index: number) => {
 		setShowDeleteIndex(null)
 		setImages(prev => {
-			const updated = prev.filter((_, i) => i !== index)
-			// зсуваємо зображення, додаючи null у кінець
+			const updated = [...prev]
+			updated.splice(index, 1) // видаляємо елемент
 			while (updated.length < 3) updated.push(null)
+			// синхронізація з контекстом
+			setField('images', updated.filter(Boolean))
 			return updated
 		})
 	}
+
 	return (
 		<View style={styles.wrapper}>
 			<ThemedText type='defaultMedium' style={{ textAlign: 'center' }}>
@@ -74,11 +80,7 @@ const AddImageInMeal = () => {
 								<>
 									<Image
 										source={{ uri: img }}
-										style={{
-											width: '100%',
-											height: '100%',
-											borderRadius: 8
-										}}
+										style={{ width: '100%', height: '100%', borderRadius: 8 }}
 									/>
 									{showDeleteIndex === index && (
 										<TouchableOpacity
