@@ -9,7 +9,7 @@ export type BaseLinkProps = LinkProps & {
 	type: 'default' | 'custom' | 'external'
 }
 
-const BaseLink = ({ href, text, className, icon, type }: BaseLinkProps) => {
+const BaseLink = ({ href, text, className, icon, type, style }: BaseLinkProps) => {
 	return (
 		<Link
 			href={href}
@@ -17,7 +17,8 @@ const BaseLink = ({ href, text, className, icon, type }: BaseLinkProps) => {
 			style={[
 				type === 'default' ? styles.default : undefined,
 				type === 'custom' ? styles.custom : undefined,
-				type === 'external' ? styles.external : undefined
+				type === 'external' ? styles.external : undefined,
+				style
 			]}
 		>
 			{icon}

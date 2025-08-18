@@ -9,13 +9,12 @@ export default function AddScreen() {
 	// const { token, user } = useAuth()
 	// const [isAuthenticated, setIsAuthenticated] = useState(false)
 	return (
-		// <ProtectedRoute isFirstRender={false} isAuthenticated={true}>
 		<SafeAreaView
 			style={{
 				flex: 1,
-				justifyContent: 'flex-start',
-				paddingTop: 80,
-				paddingBottom: 80
+				justifyContent: 'flex-start'
+
+				// paddingBottom: 24
 			}}
 		>
 			<Header>
@@ -24,6 +23,5 @@ export default function AddScreen() {
 
 			<MealComponent chapterType='before' />
 		</SafeAreaView>
-		// </ProtectedRoute>
 	)
 }

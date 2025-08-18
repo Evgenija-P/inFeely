@@ -1,16 +1,18 @@
 import { Plus } from 'assets/images/icons/icons'
 
-import CircularTimer from './CircularTimer'
+import CircularTimer, { CircularTimerRef } from './CircularTimer'
 import { ThemedText } from './ThemedText'
 
 import { Colors } from 'constants/Colors'
 import { useMealContext } from 'contexts/MealContext'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
 const Timer = () => {
 	const { state, setField } = useMealContext()
 	const [isShowModal, setIsShowModal] = useState(false)
+	const [currentTimer, setCurrentTimer] = useState(0)
+	const timerRef = useRef<CircularTimerRef>(null)
 
 	const toggleModal = () => {
 		setIsShowModal(!isShowModal)
@@ -54,7 +56,12 @@ const Timer = () => {
 				</TouchableOpacity>
 			)}
 
-			<CircularTimer />
+			<CircularTimer ref={timerRef} />
+
+			<TouchableOpacity onPress={() => timerRef.current?.start()} style={styles.button}>
+				<Text>start</Text>
+			</TouchableOpacity>
+			<Text>{currentTimer}</Text>
 		</View>
 	)
 }
@@ -63,7 +70,7 @@ export default Timer
 
 const styles = StyleSheet.create({
 	container: {
-		flex: 1,
+		// flex: 1,
 		alignItems: 'center',
 		justifyContent: 'center'
 	},

@@ -12,7 +12,7 @@ import {
 export type BaseButtonProps = ButtonProps &
 	TextProps & {
 		// type?: 'default' | 'title' | 'defaultSemiBold' | 'subtitle' | 'link'
-		className?: string
+
 		onPress?: () => void
 		title: string
 		isDisabled?: boolean
@@ -23,29 +23,36 @@ export type BaseButtonProps = ButtonProps &
 
 const BaseButton = ({
 	onPress,
-	className,
 	title,
 	isDisabled,
 	bgStyle,
 	icon,
 	imageSource
 }: BaseButtonProps) => {
-	const currenButtonStyle = bgStyle === 'white' ? 'bg-white' : 'bg-accent'
-
-	const currentTextStyle = bgStyle === 'white' ? 'text-primary' : 'text-white'
-
 	return (
 		<TouchableOpacity
 			onPress={onPress}
 			disabled={isDisabled || false}
-			className={`${className} ${currenButtonStyle} disabled:opacity-50`}
-			style={[styles.button, isDisabled && { opacity: 0.5 }]}
+			style={[
+				styles.button,
+				isDisabled && { opacity: 0.5 },
+				bgStyle === 'white'
+					? { backgroundColor: Colors.light.placeholder }
+					: { backgroundColor: Colors.light.accent }
+			]}
 		>
 			{icon}
 			{imageSource && (
 				<Image source={imageSource} style={styles.image} resizeMode='contain' />
 			)}
-			<Text className={`${currentTextStyle}`} style={styles.buttonText}>
+			<Text
+				style={[
+					styles.buttonText,
+					bgStyle === 'white'
+						? { color: Colors.light.main }
+						: { color: Colors.light.placeholder }
+				]}
+			>
 				{title}
 			</Text>
 		</TouchableOpacity>
@@ -66,8 +73,6 @@ const styles = StyleSheet.create({
 		borderRadius: 24,
 		borderWidth: 1,
 		borderColor: Colors.light.accent,
-
-		// outline: 'none',
 
 		display: 'flex',
 		flexDirection: 'row',

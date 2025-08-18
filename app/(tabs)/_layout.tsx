@@ -1,22 +1,26 @@
-import AddTabButton from 'components/AddTabButton'
-
 import {
+	Add,
 	CalendarActiveIcon,
 	CalendarIcon,
 	HomeIcon,
 	HomeIconActive,
+	InsightsActiveIcon,
 	InsightsIcon,
+	TimerActiveIcon,
 	TimerIcon
 } from 'assets/images/icons/icons'
 
 import { Colors } from 'constants/Colors'
 import { Tabs, useRouter, useSegments } from 'expo-router'
-import { TouchableOpacity, View } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
 export default function TabLayout() {
 	const router = useRouter()
+	// const segments = useSegments()
+	// const activeRoute = segments[segments.length - 1]
 	const segments = useSegments()
-	const activeRoute = segments[segments.length - 1] // останній сегмент = активний таб
+	const activeRoute = segments[segments.length - 1]
+	const isShowTabs = activeRoute !== 'add'
 
 	const goTo = (name: string) => {
 		router.push(name)
@@ -39,46 +43,97 @@ export default function TabLayout() {
 			</Tabs>
 
 			{/* Кастомний TabBar */}
-			<View
-				style={{
-					position: 'absolute',
-					bottom: 0,
-					width: '100%',
-					height: 112,
-					flexDirection: 'row',
-					justifyContent: 'space-around', // рівномірно розкидає кнопки
-					alignItems: 'center',
-					backgroundColor: Colors.light.background,
-					borderTopLeftRadius: 24,
-					borderTopRightRadius: 24,
-					paddingHorizontal: 16,
-					paddingVertical: 16,
-					zIndex: 10,
-					shadowColor: '#000',
-					shadowOpacity: 0.1,
-					shadowRadius: 10,
-					shadowOffset: { width: 0, height: -2 },
-					elevation: 5 // для тіні на Android
-				}}
-			>
-				<TouchableOpacity onPress={() => goTo('/index')}>
-					{activeRoute === 'index' ? <HomeIconActive /> : <HomeIcon />}
-				</TouchableOpacity>
+			{isShowTabs && (
+				<View
+					style={{
+						position: 'absolute',
+						bottom: 0,
+						width: '100%',
+						height: 112,
+						flexDirection: 'row',
+						justifyContent: 'space-between', // рівномірно розкидає кнопки
+						alignItems: 'center',
+						backgroundColor: Colors.light.background,
 
-				<TouchableOpacity onPress={() => goTo('/calendar')}>
-					{activeRoute === 'calendar' ? <CalendarActiveIcon /> : <CalendarIcon />}
-				</TouchableOpacity>
+						paddingHorizontal: 16,
 
-				<AddTabButton />
+						zIndex: 10
+					}}
+				>
+					<TouchableOpacity onPress={() => goTo('/')} style={[styles.button]}>
+						<View style={styles.iconsWrapper}>
+							{activeRoute === '(tabs)' ? <HomeIconActive /> : <HomeIcon />}
+						</View>
+						<Text
+							style={[
+								styles.text,
+								activeRoute === '(tabs)' ? { opacity: 1 } : { opacity: 0.4 }
+							]}
+						>
+							Home
+						</Text>
+					</TouchableOpacity>
 
-				<TouchableOpacity onPress={() => goTo('/timer')}>
-					<TimerIcon isActive={activeRoute === 'timer'} />
-				</TouchableOpacity>
+					<TouchableOpacity onPress={() => goTo('/calendar')} style={[styles.button]}>
+						<View style={styles.iconsWrapper}>
+							{activeRoute === 'calendar' ? <CalendarActiveIcon /> : <CalendarIcon />}
+						</View>
+						<Text
+							style={[
+								styles.text,
+								activeRoute === 'calendar' ? { opacity: 1 } : { opacity: 0.4 }
+							]}
+						>
+							Calendar
+						</Text>
+					</TouchableOpacity>
 
-				<TouchableOpacity onPress={() => goTo('/insights')}>
-					<InsightsIcon isActive={activeRoute === 'insights'} />
-				</TouchableOpacity>
-			</View>
+					<TouchableOpacity onPress={() => goTo('/add')}>
+						<Add />
+					</TouchableOpacity>
+
+					<TouchableOpacity onPress={() => goTo('/timer')} style={[styles.button]}>
+						<View style={styles.iconsWrapper}>
+							{activeRoute === 'timer' ? <TimerActiveIcon /> : <TimerIcon />}
+						</View>
+						<Text
+							style={[
+								styles.text,
+								activeRoute === 'timer' ? { opacity: 1 } : { opacity: 0.4 }
+							]}
+						>
+							Timer
+						</Text>
+					</TouchableOpacity>
+
+					<TouchableOpacity onPress={() => goTo('/insights')} style={[styles.button]}>
+						<View style={styles.iconsWrapper}>
+							{activeRoute === 'insights' ? <InsightsActiveIcon /> : <InsightsIcon />}
+						</View>
+						<Text
+							style={[
+								styles.text,
+								activeRoute === 'insights' ? { opacity: 1 } : { opacity: 0.4 }
+							]}
+						>
+							Insights
+						</Text>
+					</TouchableOpacity>
+				</View>
+			)}
 		</View>
 	)
 }
+
+const styles = StyleSheet.create({
+	iconsWrapper: {
+		width: 32,
+		height: 32,
+		alignItems: 'center',
+		justifyContent: 'center'
+	},
+	text: {
+		color: Colors.light.main
+	},
+	button: { alignItems: 'center', justifyContent: 'center', height: 54 }
+})

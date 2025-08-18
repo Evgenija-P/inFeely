@@ -1,5 +1,3 @@
-import ProtectedRoute from 'components/ProtectedRoute'
-import { ThemedText } from 'components/ThemedText'
 import Timer from 'components/Timer'
 
 import { StyleSheet } from 'react-native'
@@ -9,18 +7,16 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 
 export default function TimerScreen() {
 	return (
-		<ProtectedRoute isFirstRender={false} isAuthenticated={true}>
-			<SafeAreaView
-				style={{
-					flex: 1,
-					// justifyContent: 'flex-start',
-					paddingTop: 24,
-					paddingBottom: 24
-				}}
-			>
-				<Timer />
-			</SafeAreaView>
-		</ProtectedRoute>
+		<SafeAreaView
+			style={{
+				flex: 1,
+				// justifyContent: 'flex-start',
+				paddingTop: 24,
+				paddingBottom: 24
+			}}
+		>
+			<Timer />
+		</SafeAreaView>
 	)
 }
 

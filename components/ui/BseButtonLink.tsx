@@ -5,7 +5,7 @@ import { Image, ImageSourcePropType, StyleSheet, Text, TextProps } from 'react-n
 export type BaseButtonLinkProps = LinkProps &
 	TextProps & {
 		// type?: 'default' | 'title' | 'defaultSemiBold' | 'subtitle' | 'link'
-		className?: string
+
 		onPress?: () => void
 		title: string
 		isDisabled?: boolean
@@ -17,7 +17,6 @@ export type BaseButtonLinkProps = LinkProps &
 
 const BaseButtonLink = ({
 	onPress,
-	className,
 	title,
 	isDisabled,
 	bgStyle,
@@ -25,23 +24,31 @@ const BaseButtonLink = ({
 	imageSource,
 	href
 }: BaseButtonLinkProps) => {
-	const currenButtonStyle = bgStyle === 'white' ? 'bg-white' : 'bg-accent'
-
-	const currentTextStyle = bgStyle === 'white' ? 'text-primary' : 'text-white'
-
 	return (
 		<Link
 			onPress={onPress}
 			href={href}
 			disabled={isDisabled || false}
-			className={`${className} ${currenButtonStyle} disabled:opacity-50`}
-			style={[styles.button, isDisabled && { opacity: 0.5 }]}
+			style={[
+				styles.button,
+				isDisabled && { opacity: 0.5 },
+				bgStyle === 'white'
+					? { backgroundColor: Colors.light.placeholder }
+					: { backgroundColor: Colors.light.accent }
+			]}
 		>
 			{icon}
 			{imageSource && (
 				<Image source={imageSource} style={styles.image} resizeMode='contain' />
 			)}
-			<Text className={`${currentTextStyle}`} style={styles.buttonText}>
+			<Text
+				style={[
+					styles.buttonText,
+					bgStyle === 'white'
+						? { color: Colors.light.main }
+						: { color: Colors.light.placeholder }
+				]}
+			>
 				{title}
 			</Text>
 		</Link>
@@ -75,7 +82,8 @@ const styles = StyleSheet.create({
 		fontSize: 14,
 		lineHeight: 22,
 		fontFamily: 'OnestSemiBold',
-		textTransform: 'uppercase'
+		textTransform: 'uppercase',
+		textAlign: 'center'
 	},
 	image: {
 		width: 24,

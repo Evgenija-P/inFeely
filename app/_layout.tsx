@@ -1,9 +1,9 @@
 import TabLayout from './(tabs)/_layout'
-import SingInScreen from './sing_in'
+// import SingInScreen from './sing_in'
 import StartScreen from './start_page'
 
 import { Colors } from 'constants/Colors'
-import { AuthProvider, useAuth } from 'contexts/AuthContext'
+import { AuthProvider } from 'contexts/AuthContext'
 import { MealProvider } from 'contexts/MealContext'
 import { useFonts } from 'expo-font'
 import { StatusBar } from 'expo-status-bar'
@@ -17,7 +17,6 @@ const AppContent = () => {
 	const user = {
 		_id: '689f3c10490921f5880a997d'
 	}
-	console.log('token, user', token, user)
 
 	const [loaded] = useFonts({
 		OnestRegular: require('../assets/fonts/Onest-Regular.ttf'),
@@ -49,13 +48,13 @@ export default function RootLayout() {
 			style={{
 				flex: 1,
 				backgroundColor: Colors[colorScheme].background,
-				paddingHorizontal: 16
+				paddingHorizontal: 16,
+				// paddingBottom: 112,
+				paddingTop: 16
 			}}
 		>
 			<AuthProvider>
 				<MealProvider>
-					{/* Примусово рендеримо Tabs */}
-					{/* <TabLayout /> */}
 					<AppContent />
 					{/* <StatusBar style="auto" /> */}
 					<StatusBar style='auto' />

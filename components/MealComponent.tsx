@@ -144,7 +144,12 @@ const MealComponent = ({ chapterType }: MealComponentProps) => {
 export default MealComponent
 
 const styles = StyleSheet.create({
-	container: { alignItems: 'center', justifyContent: 'space-between', gap: 16 },
+	container: {
+		alignItems: 'center',
+		justifyContent: 'space-between',
+		gap: 16,
+		paddingVertical: 24
+	},
 	buttonWrapper: {
 		height: 48,
 		padding: 2,
