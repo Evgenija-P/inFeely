@@ -1,7 +1,8 @@
 import ArrowBack from 'components/ArrowBack'
 import { ThemedText } from 'components/ThemedText'
 
-import { Image, View } from 'react-native'
+import { Colors } from 'constants/Colors'
+import { Image, StyleSheet, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 const SingUpScreen = () => {
@@ -9,23 +10,26 @@ const SingUpScreen = () => {
 		<SafeAreaView
 			style={{ flex: 1, paddingTop: 24, paddingBottom: 24, justifyContent: 'space-between' }}
 		>
-			<View className='w-full flex flex-row items-center justify-between shrink mb-12'>
+			<View style={styles.container}>
 				{/* Кнопка назад */}
-				<View className='w-1/3'>
+				<View style={{ width: '33%' }}>
 					<ArrowBack href='/' />
 				</View>
 
-				<View className='w-1/3 flex flex-row items-center justify-center'>
+				<View style={styles.imageWrapper}>
 					<Image
 						source={require('../assets/images/Logo.svg')}
-						className='w-[157px] h-[56px]'
+						style={{ width: 157, height: 56 }}
 					/>
 				</View>
-				<View className='w-1/3 ' />
+				<View style={{ width: '33%' }} />
 			</View>
 
-			<View className='w-full h-full flex flex-col items-center justify-center bg-background px-6 pt-[144px] pb-6'>
-				<ThemedText className='text-primary text-center mb-8' type='title'>
+			<View style={styles.pageWrapper}>
+				<ThemedText
+					type='title'
+					style={{ marginBottom: 32, textAlign: 'center', color: Colors.light.text }}
+				>
 					This is SingUp Screen
 				</ThemedText>
 			</View>
@@ -34,3 +38,32 @@ const SingUpScreen = () => {
 }
 
 export default SingUpScreen
+
+const styles = StyleSheet.create({
+	container: {
+		width: '100%',
+		display: 'flex',
+		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'space-between',
+		marginBottom: 48
+	},
+	imageWrapper: {
+		width: '33%',
+		display: 'flex',
+		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'center'
+	},
+	pageWrapper: {
+		width: '100%',
+		height: '100%',
+		display: 'flex',
+		justifyContent: 'center',
+		alignItems: 'center',
+		paddingHorizontal: 24,
+		paddingTop: 144,
+		paddingBottom: 24,
+		backgroundColor: Colors.light.background
+	}
+})

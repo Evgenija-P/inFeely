@@ -12,6 +12,7 @@ import BaseButtonLink from './ui/BseButtonLink'
 import { BASE_URL } from 'constants/API'
 import { Colors } from 'constants/Colors'
 import { useMealContext } from 'contexts/MealContext'
+import { router } from 'expo-router'
 import { useEffect, useState } from 'react'
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 
